@@ -1,0 +1,5 @@
+We relied on bowtie2 (http://bowtie-bio.sourceforge.net/bowtie2/index.shtml, version 2.4.1) to filter out non-IG genes. Bowtie2 filtering was run with the following commands:
+bowtie2 -p 4 --local -D 20 -R 3 -N 1 -L 14 -i S,1,0.50 --mp 4,2 --no-unal 
+-x [IG gene database index] -1 [read 1 fastq file name] -2 [read 2 fastq file name] 
+--al-conc ./conc.fastq --un-conc ./unconc.fastq -S out.sam -X 600 -fr .
+The database index was built with IG gene sequences derived from IMGT and is available upon request. Two input files, read 1 and read 2 fastq files, were provided. The file, out.sam, is the output file that will be parsed and re-written as fastq files with only IG genes.   
