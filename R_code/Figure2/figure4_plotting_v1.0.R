@@ -1,4 +1,4 @@
-#figure 4 plotting module. in here we load the data from previous work and draw the figure.
+#figure 2 plotting module. in here we load the data from previous work and draw the figure.
 #R
 #
 library(plyr)
@@ -6,11 +6,13 @@ library(compositions)
 library(ggplot2)
 library(MASS)
 library(ggpubr)
+library(here)
+library(ggfortify)
 
 #   setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/figure4/noZeroMu/")
-   setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/figure4")
+   #setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/figure4")
    #load for pca loadings
-   load(file="pca_loading.RData")# saved in DataAnalysis_v2.0_geneUsage_compistion_figure4.r
+   load(file=here("Data","pca_loading.RData"))# saved in DataAnalysis_v2.0_geneUsage_compistion_figure4.r
                                                         #loaded with : g, g2, h, J, pca.VGene.clrd, cn, dt1
 
    #ggbiplot(pca.VGene.clrd)
@@ -25,22 +27,22 @@ h<-autoplot(pca.VGene.clrd,x=1,y=2,data=dt.clr.all, colour="treatment",shape="is
 
 
     #load for PC1 drawing
-    load(file="figure4_pc1_draw.RData")#saved in DataAnalysis_v2.0_geneUsage_compistion_figure4
+    load(file=here("Data","figure4_pc1_draw.RData"))#saved in DataAnalysis_v2.0_geneUsage_compistion_figure4
                                                           #loaded with : dt.mod, pc1.tr)
     #load for PC1 lines
-    load(file="figure4_pc1_lines.RData");#saved in the same module as in above
+    load(file=here("Data","figure4_pc1_lines.RData"));#saved in the same module as in above
                                 #loaded with :, xt2 , pc1.line , trendline);   
     
     
     #load for PC2 drawing 
-    load(file="figure4_pc2_draw.RData");# saved in the same module as in above,
+    load(file=here("Data","figure4_pc2_draw.RData"));# saved in the same module as in above,
                         #loaded with: dt.mod.pc2, tr.pc2)
     #load for PC2 lines 
-    load(file="figure4_pc2_lines.RData"); # saved in the same module as in above,
+    load(file=here("Data","figure4_pc2_lines.RData")); # saved in the same module as in above,
                             #loaded with :pc2.line, xt.pc2, trendline.pc2)
     
 
-    load(file="figure4_cronbachAlphaValues.RData")    #data were calculated and saved PC_consistency_CronbachA.R
+    load(file=here("Data","figure4_cronbachAlphaValues.RData"))    #data were calculated and saved PC_consistency_CronbachA.R
                                                                                                                 ### loaded with alpha 
     #add alpha to the dataframe
     dt1$alpha<-alpha[1:dim(dt1)[1]]
@@ -60,7 +62,7 @@ h<-autoplot(pca.VGene.clrd,x=1,y=2,data=dt.clr.all, colour="treatment",shape="is
     
 
 
-tiff("figure4_3.tiff", width=1200, height=1400)
+tiff(here("Output","figure4_3.tiff"), width=1200, height=1400)
 ggarrange(
 #level 1 for 
      ggarrange(  cn, g,  h,
