@@ -1,0 +1,14 @@
+# Read me about the code and data
+
+## Code files
+
+- 1) figure4_plotting_v1.0.r
+
+This is the file to draw final figure (Figure 2) in the manuscript. It loaded the saved data and did plotting. (See Readme for other code files and data sets).
+
+Note: the file NAME is for the old version of manuscript and is not in the order of the latest one, but the code are correct.
+
+- 2) DataAnalysis_v2.0_geneUsage_composition_figure4_noZeroMu.r
+
+This is the file to generate data using the data set without Zero mutations (likely memory cells??). At this current memont we, specifically,
+want to test the data set for calculating alpha cronbach (pcaData_cronbachAlapha.RData). Somehow, both saved data (in full dataset folder and noZeroMu folder) are the same. We want to resolve the mystery.
