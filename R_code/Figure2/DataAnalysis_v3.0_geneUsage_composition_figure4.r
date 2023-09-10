@@ -189,10 +189,9 @@ dt.clr<-cbind(dt.clr, conditions.all)
    dt.clr.all$treatment<-factor(dt.clr.all$treatment, levels=c("PBS", "OVA", "OVA+CpG", "OVA+Alum"))
 	pca.VGene.clrd<-prcomp(dt.clr.data, scale=F, center=T)
 
-#-----> saving the intermediate output. (? is this necessary?)
 
-#    setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/figure4/")
-#    save(pca.VGene.clrd, dt.clr.data,  file="pcaData_cronbachAlapha.RData")#save the data so to do crobach alapha for stability.
+  save(pca.VGene.clrd, dt.clr.data,  
+      file=here(data.dir,"pcaData_cronbachAlapha.RData"))#save the data so to do crobach alapha for stability.
                 ###==== see the R file PC_consistency_CronbachA.R
     #get scaled data ready for doing trend for confirming 
 	dt.clr.data.scaled<-scale(dt.clr.data, scale=F, center=T)	

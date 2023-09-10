@@ -12,3 +12,5 @@ Note: the file NAME is for the old version of manuscript and is not in the order
 
 This is the file to generate data using the data set without Zero mutations (likely memory cells??). At this current memont we, specifically,
 want to test the data set for calculating alpha cronbach (pcaData_cronbachAlapha.RData). Somehow, both saved data (in full dataset folder and noZeroMu folder) are the same. We want to resolve the mystery.
+
+- 3)
