@@ -1,0 +1,30 @@
+snum	ID	tissue	treatment
+1	MB1	Bone Marrow	PBS
+10	MB10	Bone Marrow	OVA+CpG
+12	MB12	Bone Marrow	OVA+CpG
+13	MB13	Bone Marrow	OVA+Alum
+14	MB14	Bone Marrow	OVA+Alum
+15	MB15	Bone Marrow	OVA+Alum
+11	MB11	Bone Marrow	OVA+CpG
+2	MB2	Bone Marrow	PBS
+3	MB3	Bone Marrow	PBS
+4	MB4	Bone Marrow	OVA
+5	MB5	Bone Marrow	OVA
+6	MB6	Bone Marrow	OVA
+7	MB7	Bone Marrow	OVA+PorB
+8	MB8	Bone Marrow	OVA+PorB
+9	MB9	Bone Marrow	OVA+PorB
+1	SP1	Spleen	PBS
+10	SP10	Spleen	OVA+CpG
+11	SP11	Spleen	OVA+CpG
+12	SP12	Spleen	OVA+CpG
+13	SP13	Spleen	OVA+Alum
+14	SP14	Spleen	OVA+Alum
+15	SP15	Spleen	OVA+Alum
+2	SP2	Spleen	PBS
+3	SP3	Spleen	PBS
+4	SP4	Spleen	OVA
+6	SP6	Spleen	OVA
+7	SP7	Spleen	OVA+PorB
+8	SP8	Spleen	OVA+PorB
+9	SP9	Spleen	OVA+PorB
