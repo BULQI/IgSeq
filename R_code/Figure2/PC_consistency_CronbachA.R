@@ -15,6 +15,7 @@ library(here)
 ###note: alpha doesn't change much for different dl (lower limit of the clr data)
 #setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/figure4/noZeroMu")
 data.dir<-"Data/Figure2"
+output.dir<-"R_code/Figure2"
 load(here(data.dir,"pcaData_cronbachAlapha.RData"))    #data were saved DataAnalysis_V2.0_geneUsage_compsition_figure4_noZeroMu.r 
                     #we should have pca.VGene.clrd <-- the pca object by prcomp
                        # dt.clr.data <-original data scaled and center 
@@ -28,7 +29,7 @@ mdt<-as.matrix(dt.clr.data)
 mdts<-scale(mdt, center=T, scale=T)
 var.Sx<-rep(0, num_PC);
 alpha<-rep(0, num_PC)
-png("sample_withinVar_perPC.png")
+png(file=here(output.dir,"sample_withinVar_perPC.png"))
 plot(x=c(0,46),y=c(-0.10,0.15),type="n", log="", xlab="sample ID", ylab="value(mean and var)")
 sampleNames<-rownames(dt.clr.data)
 #title(xlab=sampleNames)
@@ -61,13 +62,13 @@ text(x=39,y=0.05, labels="BM IgM",col=5,cex=2)
 
 dev.off()
 save(alpha, file=here(data.dir,"figure4_cronbachAlphaValues.RData"))
-pdf("varOfEachItemScore.pdf")
+pdf(file=here(output.dir,"varOfEachItemScore.pdf"))
 plot(var.Sx)
 dev.off()
-pdf("varOfEachPC.pdf")
+pdf(file=here(output.dir,"varOfEachPC.pdf"))
 plot(pca.VGene.clrd$sdev)
 dev.off()
-pdf("cronbachAlpha.pdf")
+pdf(file=here(output.dir,"cronbachAlpha.pdf"))
 plot(y=c(0,1), x=c(1,45), type="n")
 points(alpha[1:45])
 dev.off()
@@ -113,7 +114,7 @@ for(i in 1:(runs))
     points(1:(ncols/2), abs(cs[i,]))
     
 }
-pdf("splithalf_IGHV.pdf")
+pdf(file=here(output.dir,"splithalf_IGHV.pdf"))
 plot(density(cs[,1]))
 dev.off()
 apply((cs), 2, median)
@@ -160,7 +161,7 @@ for ( i in 1:runs)
     cs<-rbind(cs,ccs)
 }
 
-pdf("splithalf_sample.pdf")
+pdf(file=here(output.dir,"splithalf_sample.pdf"))
 plot(density(cs[,1]))
 dev.off()
 apply((cs), 2, median)

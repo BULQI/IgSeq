@@ -8,9 +8,9 @@ This is the file to draw final figure (Figure 2) in the manuscript. It loaded th
 
 Note: the file NAME is for the old version of manuscript and is not in the order of the latest one, but the code are correct.
 
-- 2) DataAnalysis_v2.0_geneUsage_composition_figure4_noZeroMu.r
+- 2) DataAnalysis_v2.0_geneUsage_composition_figure4.r
 
-This is the file to generate data using the data set without Zero mutations (likely memory cells??). At this current memont we, specifically,
-want to test the data set for calculating alpha cronbach (pcaData_cronbachAlapha.RData). Somehow, both saved data (in full dataset folder and noZeroMu folder) are the same. We want to resolve the mystery.
+This is the file to run analysis and generate data for plotting the final figures using the full data set. 
 
-- 3)
+- 3) PC_consistency_CronbachA.R
+This is the file to run Cronbach alpha analysis and generate data for plotting. 
