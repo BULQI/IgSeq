@@ -2,15 +2,20 @@
 
 ## Code files
 
-- 1) figure4_plotting_v1.0.r
+Please make sure you run the R code files in the following order. 
+
+- 1) DataAnalysis_v2.0_geneUsage_composition_figure4.r
+
+This is the file to run analysis and generate data for plotting the final figures using the full data set. 
+This module assume the input files are either manually copied to the ../Data/Figure2 folder or you have run the data preprocessing programs.
+
+- 2) PC_consistency_CronbachA.R
+
+This is the file to run Cronbach alpha analysis and generate data for plotting. 
+
+- 3) figure4_plotting_v1.0.r
 
 This is the file to draw final figure (Figure 2) in the manuscript. It loaded the saved data and did plotting. (See Readme for other code files and data sets).
 
-Note: the file NAME is for the old version of manuscript and is not in the order of the latest one, but the code are correct.
 
-- 2) DataAnalysis_v2.0_geneUsage_composition_figure4.r
 
-This is the file to run analysis and generate data for plotting the final figures using the full data set. 
-
-- 3) PC_consistency_CronbachA.R
-This is the file to run Cronbach alpha analysis and generate data for plotting. 
