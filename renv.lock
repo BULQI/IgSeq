@@ -257,6 +257,13 @@
       "Source": "Bioconductor",
       "Hash": "1f4c0859b8f338bd9f8c0b7967e719a3"
     },
+    "TH.data": {
+      "Package": "TH.data",
+      "Version": "1.1-2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "5b250ad4c5863ee4a68e280fcb0a3600"
+    },
     "XML": {
       "Package": "XML",
       "Version": "3.99-0.3",
@@ -562,12 +569,12 @@
     },
     "emmeans": {
       "Package": "emmeans",
-      "Version": "1.4.3.01",
+      "Version": "1.4.5",
       "Source": "URL",
       "Repository": "CRAN",
       "RemoteType": "url",
-      "RemoteUrl": "https://cran.r-project.org/src/contrib/Archive/emmeans/emmeans_1.4.3.01.tar.gz",
-      "Hash": "408ec3cff8f9869da4d06c4d7a4d3c15"
+      "RemoteUrl": "https://cran.r-project.org/src/contrib/Archive/emmeans/emmeans_1.4.5.tar.gz",
+      "Hash": "2f9db5e5241be6f04b40737a21ac69a1"
     },
     "estimability": {
       "Package": "estimability",
@@ -1018,6 +1025,20 @@
       "Repository": "CRAN",
       "Hash": "7664664bb3addc9fd13355952532ec59"
     },
+    "multcomp": {
+      "Package": "multcomp",
+      "Version": "1.4-25",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "2688bf2f8d54c19534ee7d8a876d9fc7"
+    },
+    "multcompView": {
+      "Package": "multcompView",
+      "Version": "0.1-9",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "a453bb54107d6ff5fb4280729e15a023"
+    },
     "munsell": {
       "Package": "munsell",
       "Version": "0.5.0",
@@ -1317,6 +1338,13 @@
       "Source": "Bioconductor",
       "Hash": "a635995c99bc0e67fd23167f859893af"
     },
+    "sandwich": {
+      "Package": "sandwich",
+      "Version": "3.0-2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "dd5af939b8690baa8ee0bca996e99924"
+    },
     "sass": {
       "Package": "sass",
       "Version": "0.4.7",
@@ -1526,6 +1554,13 @@
       "Version": "1.32.0",
       "Source": "Bioconductor",
       "Hash": "f7a31247eadfb45098bcf2e8c4aebb49"
+    },
+    "zoo": {
+      "Package": "zoo",
+      "Version": "1.8-12",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "5c715954112b45499fb1dadc6ee6ee3e"
     }
   }
 }

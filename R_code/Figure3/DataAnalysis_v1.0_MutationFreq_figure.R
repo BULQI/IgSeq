@@ -41,7 +41,7 @@ library(frLib)
 #library(compositions)
 library(emmeans)
 library(multcompView)
-library(multcomp)
+library(multcomp) #for doing coxbox transformation testing
 library(ggplot2)
 library(ggpubr)
 library(here)
@@ -492,9 +492,9 @@ v.3way<-aggregate(mu.means.np$x, by=list(treatment=mu.means.np$treatment, isotyp
 mv<-data.frame(mean=m.3way$x, var=v.3way$x, treatment=m.3way$treatment, isotype=m.3way$isotype, tissue=m.3way$tissue)   
     
     ######Note: here we are trying to plotting using the estimated pool equal variance!!!
-
-mv<-data.frame(em_tr)
-colnames(mv)[c(4,5)]<-c("mean", "var")
+    #we revert back to use the true sd for plotting.<--
+#mv<-data.frame(em_tr)
+#colnames(mv)[c(4,5)]<-c("mean", "var")
 m3way<-ggplot(data=mv, aes(x=isotype, y=mean, fill=treatment))+
     geom_bar(stat="identity", position = position_dodge(width = 0.9))+theme_bw(base_size=15)+ylab("Mu Freq")+
     ylim(c(0,0.0135))+scale_fill_discrete(name=element_blank())+
@@ -548,7 +548,7 @@ save(mv, m3way,mu.means.np,
     file=here(data.figure3.dir,"m3way_treatment.RData" ))
 
 tiff(file=here(output.dir,"mufreq.tiff"),width=850, height=650)       
-   library(ggpubr)     
+#   library(ggpubr)     
         ggarrange(
                         ggarrange(m1,m2,
                                 nrow=1, ncol=2, widths=c(1,2.5), labels=c("A","B")
@@ -560,7 +560,7 @@ tiff(file=here(output.dir,"mufreq.tiff"),width=850, height=650)
 
 tiff(file=here(output.dir,"mufreq_treatReduce.tiff"),
       width=850, height=650)       
-   library(ggpubr)     
+#   library(ggpubr)     
         ggarrange(
                         ggarrange(m1,m2,
                                 nrow=1, ncol=2, widths=c(1,2.5), labels=c("A","B")
@@ -575,8 +575,9 @@ m.3way<-aggregate(mu.means.np$x, by=list(treatment=mu.means.np$treatment, isotyp
 v.3way<-aggregate(mu.means.np$x, by=list(treatment=mu.means.np$treatment, isotype=mu.means.np$isotype, tissue=mu.means.np$tissue), FUN=function(x){sd(x)/sqrt(length(x))})
 mv<-data.frame(mean=m.3way$x, var=v.3way$x, treatment=m.3way$treatment, isotype=m.3way$isotype, tissue=m.3way$tissue)   
 
-mv.split<-data.frame(em_tr)
- colnames(mv.split)[c(4,5)]<-c("mean","var")
+mv.split<-mv
+#mv.split<-data.frame(em_tr)
+# colnames(mv.split)[c(4,5)]<-c("mean","var")
  mv.split$section<-"Immunized"
  mv.split[mv.split$treatment=="PBS","section"]<-"PBS"
 
@@ -676,9 +677,9 @@ m3wayIso
 dev.off();
 
 ########################tissue
-#mv.split.tis<-mv
-mv.split.tis<-data.frame(em_tr)
- colnames(mv.split.tis)[c(4,5)]<-c("mean","var")
+mv.split.tis<-mv
+#mv.split.tis<-data.frame(em_tr)
+# colnames(mv.split.tis)[c(4,5)]<-c("mean","var")
  mv.split.tis$section<-"Immunized"
  mv.split.tis[mv.split.tis$treatment=="PBS","section"]<-"PBS"
  m3wayTis.pbs<-ggplot(data=mv.split.tis[mv.split.tis$section=="PBS",], aes(x=isotype, y=mean, fill=tissue))+
@@ -1014,6 +1015,7 @@ mvm$treatment<-mu.mean.np.mouse[mu.mean.np.mouse$isotype=="IgG"&mu.mean.np.mouse
 colnames(mvm)<-c("mouse", "isotype", "muDiff", "treatment")
 mvm<-mvm[mvm$mouse!=5,]
 lm.mvm<-lm(data=mvm, muDiff~isotype*treatment)
+#library(multcomp)
 bcx<-boxcox(lm.mvm)
 lamda<-bcx$x[which.max(bcx$y)]
 mvm$trs<-(mvm$muDiff^lamda-1)/lamda
@@ -1021,13 +1023,12 @@ lm.mvmtrs<-lm(data=mvm, trs~isotype*treatment)
 qqnorm(lm.mvmtrs$residual)
 qqline(lm.mvmtrs$residual)
 Anova(lm.mvmtrs)
-#Response: muDiff
- #                     Sum Sq Df F value  Pr(>F)  
-#isotype           1.8505e-05  1  3.8631 0.06952 .
-#treatment         9.2390e-06  3  0.6429 0.60006  
-#isotype:treatment 1.0099e-05  3  0.7028 0.56596  
-#Residuals         6.7063e-05 14                 
-
+#Response: trs
+#                     Sum Sq Df F value Pr(>F)  
+#isotype           0.0067768  1  4.7437 0.0470 *
+#treatment         0.0039471  3  0.9210 0.4561  
+#isotype:treatment 0.0030191  3  0.7044 0.5650  
+#Residuals         0.0200003 14  
 
 em_tr<-emmeans(lm.mvmtrs, ~treatment|isotype)
 #em_tr %>% test(joint=F)
