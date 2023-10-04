@@ -71,19 +71,29 @@
 library(SpadeR)
 library(gridBase)
 library(grid)
+library(here)
 
 
+library(ggplot2)
+library(ggalt)
+library(ggpubr)
+library(car)
+library(emmeans)
+
+
+data.dir<-"Data/Figure5"
+output.dir<-"R_code/Figure5"
 #now the hardest part to generate the data that can be used by the packages, SpadeR and iNEXT
 #see the user guides for the two packages.
 #
 #read the saved data, which were saved by DataAnalysis_v1.0_clone_data.R
 #read the files 15 mice (5 group x 3 mice each and two tissue)
 
-load("clones.Rdata") # loaded with BM.clones, SP.clones and conditions, (list(IgG and IgM), list (IgG+IgM), data.frame)
+load(here(data.dir,"clones.Rdata")) # loaded with BM.clones, SP.clones and conditions, (list(IgG and IgM), list (IgG+IgM), data.frame)
                                                #clone.inc data , clone incidence freq data (not count data yet)
 
                     
-load(file="diversity_subSample2.RData")#generated in Diversity_subsample_RCMD_v2.0.r on linux.
+load(file=here(data.dir,"diversity_subSample2.RData"))#generated in Diversity_subsample_RCMD_v2.0.r on linux.
                         #two pieces of data are loaded : ReadMe.text and div.tbl (this one is a data format table holding hill numbers 0,4)
 
 #now add conditions/grouping information
@@ -97,9 +107,6 @@ div.tbl$treatment<-as.character(div.tbl$treatment)
 
 ###now save the diversity data for doing MFA and clustering
 
-library(ggplot2)
-      library(ggalt)
-      library(ggpubr)
 
       #+++++++++++++++++++++++++++++++++++++++++++     
       ######do unnormalized data plotting first.                  ++
@@ -211,12 +218,12 @@ div.t3$trans<-(asin(sqrt(div.t3$proportion)))#log(div.t3$proportion)#-log(1-div.
 m.div.t3<-aggregate(div.t3$trans, by=list(div.t3$isotype, div.t3$treatment, div.t3$tissue, div.t3$q),
                         FUN=mean)
 
-setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/figure5/subsample/")
+#setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/figure5/subsample/")
 
-save(file="Diversity_table_all_subsample_normArcsin.RData", div.t3)
+save(file=here(data.dir,"Diversity_table_all_subsample_normArcsin.RData"), div.t3)
 
 
-library(car)
+
 options(contrasts = c("contr.sum", "contr.poly"))  
 div.t3$treatment=factor(div.t3$treatment, levels=c("PBS","OVA", "OVA+CpG","OVA+Alum"))
 div.t3$isotype=factor(div.t3$isotype, levels=c("IgM","IgG")) 
@@ -224,7 +231,7 @@ div.t3$tissue=factor(div.t3$tissue, levels=c("Spleen","Bone Marrow"))
 x.lm<-lm(data=div.t3[div.t3$q==4,], trans~tissue*isotype*treatment)
 Anova(x.lm, type=3)
 
-library(emmeans)
+
 #dt.mod<-data.frame(q3=div.qs[,"q3"], treatment=div.qs$treatment, isotype=div.qs$isotype, tissue=div.qs$tissue)
 
 #mod<-lm(q3~treatment*isotype*tissue, data=dt.mod)
@@ -326,7 +333,8 @@ tr<-ggplot(data=temp, aes(x=q, y=ChaoJost_log, shape =(treatment),color=(treatme
                         q=rep(1.0,4),
                      tissue=c("Spleen", "Bone Marrow","Spleen","Bone Marrow")),
                     color="black", size=7, aes(label=c("","****","","")),hjust = rep(0.5,4))
- tiff("Diversity3way_tr_arc_supp.tiff", width=800, height=500)
+ tiff(here(output.dir,"Diversity3way_tr_arc_supp.tiff"), 
+  width=800, height=500)
 tr
 dev.off();
 
@@ -391,10 +399,12 @@ dev.off();
                         isotype="IgG", q=c(1.0,1.0,1.0,1,2,3,4)
                     , tissue="Spleen"),
                     color="black", size=7, aes(label=c("*","**","*","**","**", "**","**")),hjust = rep(0.5,7))              
- tiff("Diversity3way_iso_arc_supp.tiff", width=800, height=500)
+ tiff(here(output.dir,"Diversity3way_iso_arc_supp.tiff"), 
+  width=800, height=500)
 iso
 dev.off();     
- tiff("Diversity3way_tis_arc_supp.tiff", width=800, height=500)
+ tiff(here(output.dir,"Diversity3way_tis_arc_supp.tiff"), 
+  width=800, height=500)
 tis
 dev.off();              
 
@@ -519,15 +529,16 @@ q3.tr<-ggplot(data=dt.mod, aes(y=q3, x=isotype, color=treatment))+
  
  
     #plot the pie chart of distribution
-    setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/figure3/")
-   load( file="cloneSize_distribution13.RData")
+#    setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/figure3/")
+   load( file=here(data.dir,"cloneSize_distribution13.RData"))
     p1<-p1+theme (plot.title = element_text(size=11))
     p2<-p2+theme (plot.title = element_text(size=11))
     p3<-p3+theme (plot.title = element_text(size=11))
     p4<-p4+theme (plot.title = element_text(size=11))
     
-    setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/figure5/subsample")
-tiff(file="diversity_proportionNorm_figure5_arcsin_v2.0.tiff", width=1300, height=850)
+#    setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/figure5/subsample")
+tiff(file=here(output.dir,"diversity_proportionNorm_figure5_arcsin_v2.0.tiff"), 
+    width=1300, height=850)
 ggarrange(
                             ggarrange(iso.unnorm, ggarrange(p2, p1,  p4, p3,  ncol = 2, nrow = 2,
                                                                                         common.legend=T, legend="bottom"),
@@ -558,11 +569,12 @@ q1.tr<-ggplot(data=dt.mod, aes(y=q3, x=isotype, color=treatment))+
         labs( y="Normalized Diversity(q=1)")+#, title=name.array[i]) +
        facet_grid(.~tissue)
        
- tiff(file="diversity_proportionNorm_suppl_q1_arcsin.tiff", width=800, height=650)      
-       q1.tr
-       dev.off()
+ tiff(file=here(output.dir,"diversity_proportionNorm_suppl_q1_arcsin.tiff"), 
+    width=800, height=650)      
+       q1.tr +
+ #      dev.off()
        
-       + 
+      # + 
         geom_segment(data=data.frame(treatment=0.0,q3=0.01, isotype="IgG", tissue="Bone Marrow"),
                     aes(x=1.7, xend=1.9, y=0.375, yend=0.375), colour="black",size=0.9) +
          geom_segment(data=data.frame(treatment=0.0,q3=0.01, isotype="IgG", tissue="Bone Marrow"),
@@ -603,4 +615,4 @@ q1.tr<-ggplot(data=dt.mod, aes(y=q3, x=isotype, color=treatment))+
           #          , tissue="Bone Marrow"),
           #          color="black", size=5, aes(label=c("p<0.001", "p<0.001", "p<0.05","p<0.05")),hjust = rep(0.5,4))+
         theme(legend.position = c(0.1, 0.8),text= element_text(size=12),axis.title.x=element_blank())
-   
+   dev.off()

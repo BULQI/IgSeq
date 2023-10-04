@@ -1,5 +1,9 @@
 #R code to analyze the heavy chain sequencing data, mutation frequency
 #now doing the mutation analysis for manuscript figure.
+#
+# 9/29/2023  feng 
+#the latest one for using with zero data and all sequences.
+##
 #copied from /newPipeline/DataAnalysis_v1.0_mutation.R
 #---3/19/2022
 #    small modification for plotting saving data.
