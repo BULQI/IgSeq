@@ -96,7 +96,7 @@ p4<-ggplot(BMS, aes(x = "", y =counts, fill =size)) +
  save(p1,p2,p3,p4, GS, MS, BGS, BMS, 
     file=here(data.dir,"cloneSize_distribution13.RData"))
 
-tiff(file=(output.dir,paste0("cloneSizeSpleen_mouse", mouse, ".tiff")), 
+tiff(file=here(output.dir,paste0("cloneSizeSpleen_mouse", mouse, ".tiff")), 
   width=650, height=630)
 ggarrange(p1, p2,  p3,p4,
                           ncol = 2, nrow = 2,

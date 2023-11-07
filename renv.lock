@@ -191,6 +191,13 @@
       "Repository": "CRAN",
       "Hash": "207c90cd5438a1f596da2cd54c606fee"
     },
+    "RSpectra": {
+      "Package": "RSpectra",
+      "Version": "0.16-1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "6b5ab997fd5ff6d46a5f1d9f8b76961c"
+    },
     "Rcpp": {
       "Package": "Rcpp",
       "Version": "1.0.11",
@@ -212,6 +219,13 @@
       "Repository": "CRAN",
       "Hash": "1e035db628cefb315c571202d70202fe"
     },
+    "RcppTOML": {
+      "Package": "RcppTOML",
+      "Version": "0.2.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "c232938949fcd8126034419cc529333a"
+    },
     "Rhtslib": {
       "Package": "Rhtslib",
       "Version": "1.18.1",
@@ -223,6 +237,13 @@
       "Version": "2.2.3",
       "Source": "Bioconductor",
       "Hash": "6d7d5bb29dd9bb69bfabccfa595a8a53"
+    },
+    "Rtsne": {
+      "Package": "Rtsne",
+      "Version": "0.16",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "e921b89ef921905fc89b95886675706d"
     },
     "Rttf2pt1": {
       "Package": "Rttf2pt1",
@@ -283,6 +304,15 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "4f57884290cc75ab22f4af9e9d4ca862"
+    },
+    "apcluster": {
+      "Package": "apcluster",
+      "Version": "1.4.8",
+      "Source": "URL",
+      "Repository": "CRAN",
+      "RemoteType": "url",
+      "RemoteUrl": "https://cran.r-project.org/src/contrib/Archive/apcluster/apcluster_1.4.8.tar.gz",
+      "Hash": "e3bf9f9fa7a66cd0e080211386311057"
     },
     "ash": {
       "Package": "ash",
@@ -508,6 +538,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "d6fd1b1440c1cacc6623aaa4e9fe352b"
+    },
+    "dbscan": {
+      "Package": "dbscan",
+      "Version": "1.1-11",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "1363f02b54d086ace5af19f590697f90"
     },
     "dendextend": {
       "Package": "dendextend",
@@ -848,6 +885,15 @@
       "Repository": "CRAN",
       "Hash": "ac107251d9d9fd72f0ca8049988f1d7f"
     },
+    "igraph": {
+      "Package": "igraph",
+      "Version": "1.3.0",
+      "Source": "URL",
+      "Repository": "CRAN",
+      "RemoteType": "url",
+      "RemoteUrl": "https://cran.r-project.org/src/contrib/Archive/igraph/igraph_1.3.0.tar.gz",
+      "Hash": "729190fc3f2f505842d67554f94d2b67"
+    },
     "isoband": {
       "Package": "isoband",
       "Version": "0.2.7",
@@ -882,6 +928,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "266a20443ca13c65688b2116d5220f76"
+    },
+    "kernlab": {
+      "Package": "kernlab",
+      "Version": "0.9-32",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "d7d6a7cb690ac73eeced99e1ed9d6cdb"
     },
     "knitr": {
       "Package": "knitr",
@@ -1009,6 +1062,13 @@
       "Repository": "CRAN",
       "Hash": "587ce77fd3c7bada7eadb2d18b62930d"
     },
+    "misc3d": {
+      "Package": "misc3d",
+      "Version": "0.9-1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "c075218a4fc802bab009a7f5e01bb686"
+    },
     "missMDA": {
       "Package": "missMDA",
       "Version": "1.15",
@@ -1118,6 +1178,13 @@
       "Repository": "CRAN",
       "Hash": "abf0ca85c1c752e0d04f46334e635046"
     },
+    "pheatmap": {
+      "Package": "pheatmap",
+      "Version": "1.0.12",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "db1fb0021811b6693741325bbe916e58"
+    },
     "pillar": {
       "Package": "pillar",
       "Version": "1.9.0",
@@ -1146,6 +1213,15 @@
       "Repository": "CRAN",
       "Hash": "09eb987710984fc2905c7129c7d85e65"
     },
+    "plot3D": {
+      "Package": "plot3D",
+      "Version": "1.3",
+      "Source": "URL",
+      "Repository": "CRAN",
+      "RemoteType": "url",
+      "RemoteUrl": "https://cran.r-project.org/src/contrib/Archive/plot3D/plot3D_1.3.tar.gz",
+      "Hash": "653a9f920b577561e6bb4bff1dfdd197"
+    },
     "plotly": {
       "Package": "plotly",
       "Version": "4.10.2",
@@ -1161,6 +1237,13 @@
       "RemoteType": "url",
       "RemoteUrl": "https://cran.r-project.org/src/contrib/Archive/plyr/plyr_1.8.6.tar.gz",
       "Hash": "69d0df4ba3571da2ed980f4f6325f468"
+    },
+    "png": {
+      "Package": "png",
+      "Version": "0.1-8",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "bd54ba8a0a5faded999a7aab6e46b374"
     },
     "polynom": {
       "Package": "polynom",
@@ -1234,6 +1317,13 @@
       "RemoteUrl": "https://cran.r-project.org/src/contrib/Archive/quantreg/quantreg_5.52.tar.gz",
       "Hash": "00fb2cafa9a2c4d04115179035103376"
     },
+    "rARPACK": {
+      "Package": "rARPACK",
+      "Version": "0.11-0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "fa4822bb52e2a6b5a7a6f9611e3a6739"
+    },
     "rappdirs": {
       "Package": "rappdirs",
       "Version": "0.3.3",
@@ -1280,6 +1370,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "bb5996d0bd962d214a11140d77589917"
+    },
+    "reticulate": {
+      "Package": "reticulate",
+      "Version": "1.34.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "a69f815bcba8a055de0b08339b943f9e"
     },
     "rjson": {
       "Package": "rjson",
@@ -1469,6 +1566,15 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "892048d061cd01149ba86d9e841297ae"
+    },
+    "umap": {
+      "Package": "umap",
+      "Version": "0.2.7.0",
+      "Source": "URL",
+      "Repository": "CRAN",
+      "RemoteType": "url",
+      "RemoteUrl": "https://cran.r-project.org/src/contrib/Archive/umap/umap_0.2.7.0.tar.gz",
+      "Hash": "2283fbf650fef53961cf13be06c119c1"
     },
     "utf8": {
       "Package": "utf8",

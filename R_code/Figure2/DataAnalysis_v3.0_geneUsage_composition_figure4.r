@@ -165,10 +165,11 @@ dt.clr<-cbind(dt.clr, conditions.all)
     #     new notes:: here!!! 
     #     do we need to save the data here???
     #     need to check later
+    #  Yes, we need this for the later figure 7 to use
     ############################
 #//now save the data, so they can be used by clustering and MFA in figure 6.
 #setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/figure4/")
-#   save(file="geneUsage_all_clr.RData", dt.clr)
+   save(file=here(data.dir,"geneUsage_all_clr.RData"), dt.clr)
 
 ##end of checking for saving section 
 

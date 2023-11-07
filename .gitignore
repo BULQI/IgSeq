@@ -1,3 +1,8 @@
 *.tiff
 *.png
 *.jpeg
+
+# R data
+*.RData
+*.Rdata
+*.rdata

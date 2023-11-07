@@ -9,15 +9,19 @@ library(vegan)
 library(compositions)
 library(grid)
 library(gridBase)
+library(here)
+library(MASS)
+
 
  
- load("./clones.df.RData")
+ data.dir<-"Data/Figure6"
+ load(here(data.dir, "clones.df.RData"))
  topn<-40#40#30#15 #20
  
  #
- load("intraClonalDiversity_BM.RData")  #idis.BM.IgM, idis.BM.IgG
+ load(here(data.dir,"intraClonalDiversity_BM.RData"))  #idis.BM.IgM, idis.BM.IgG
 #generated in ./intraClonal_batch.R, 
- load("intraClonalDiversity_SP.RData")  #idis.SP.IgM, idis.SP.IgG
+ load(here(data.dir, "intraClonalDiversity_SP.RData"))  #idis.SP.IgM, idis.SP.IgG
 #generated in ./intraClonal_batch.R  
 
 
@@ -26,11 +30,10 @@ library(gridBase)
                     #save(data.array, conditions, name.array, file="intraClonalDiversityDataArray.RData")
 #load("intraClonalDiversityDataArray_top75.RData")
 #load("intraClonalDiversityDataArray_top50.RData")#       
-load("intraClonalDiversityDataArray_top40.RData")            
+load(here(data.dir,"intraClonalDiversityDataArray_top40.RData"))            
 
 
 #first do linear regression, 
-library(MASS)
 
 #remove "porB" samples for doing the manuscript
 for(i in 1:4)
@@ -145,7 +148,7 @@ figure<-ggarrange(gp[[1]], gp[[2]], gp[[3]], gp[[4]], ncol=2, nrow=2)
 figure
 #dev.off()
 
-load("intraClonalDiversity_intraD_top40.RData")
+load(here(data.dir,"intraClonalDiversity_intraD_top40.RData"))
 #load("intraClonalDiversity_intraD_top75.RData")
 #interaction
 

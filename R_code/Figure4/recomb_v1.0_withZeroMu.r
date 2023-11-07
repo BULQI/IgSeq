@@ -203,7 +203,7 @@ ec<-emmeans::contrast(em_tr, Set1, adjust='none')
 
 #setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/CDR3IgGSub/")
 #png("CDR3_treatment.png", width=800, height=550)
-png(file=here(output.dir, "Figure4_CDR3_treatment.png",   #"CDR3_treatment_withZeroMu.png"), 
+png(file=here(output.dir, "Figure4_CDR3_treatment.png"),   #"CDR3_treatment_withZeroMu.png"), 
   width=800, height=550)
 cdr3<-ggplot(cdr3.mean, aes(y=CDR3Length, x=isotype, col=treatment))+
          geom_boxplot(aes(shape=treatment), notch=F, notchwidth=0.1)+
