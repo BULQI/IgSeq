@@ -3,7 +3,7 @@
 ##Data 
 To prepare the data for reproducing the figure 5, do one of the following:
 	
-	- download the data from . and put the data in the ../Data/Figure5
+	- download the data and put the data in the ../Data/Figure5 (see the links contained in the file ../../Data/Figure5/ReadMe.txt)
 	
 	- run the data precessing scripts (../DataPrepare), which will generate the data and save at the correct location.
 

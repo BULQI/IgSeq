@@ -9,10 +9,13 @@ To prepare the data for reproducing the Figure 7,
 
 ##Steps to reproduce the figure
 	
-	- Run the R script "analysis_v1.6_MFA.r" to do MFA analysis including generating 3D gif movies in the Supplementary material.
-	Note: in order to successfully generate the 3D gif movies, you
-	need to following the instructions in ./README_3D_gif_movies.txt.
+	- Run the R script "analysis_v1.6_MFA.r" to do MFA analysis and generate figures in the Supplementary material.
+	
 
 	- Run the R script "analysis_v1.6_cluser.r" to do the clustering of the data. 
 
 	- Run figurePlot_MFA_cluster_v2.0.r to plot the Figure 7 as show in the manuscript.  
+
+	- Optionally, run analysis_v1.6_MFA_3Dgifmovie_v1.0.R to generate 3D gif movies in the Supplementary material
+	Note: in order to successfully generate the 3D gif movies, you
+	need to following the instructions in ./README_3D_gif_movies.txt.
