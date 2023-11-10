@@ -17,17 +17,19 @@
  
   library(cluster)
  library(dendextend)
+ library(here)
  
  
-
+data.dir<-"Data/Figure7"
+output.dir<-"R_code/Figure7"
 # load data, clustering  
-load("g3.grey.rdata") # saved in analysis_v1.0_cluster.r
+load(here(data.dir,"g3.grey.rdata")) # saved in analysis_v1.0_cluster.r
                                                   #load g3.grey and conds
 
 
 
 #load data, MFA and hclust
-load("MFA.hclust.plots.v1.6_pc3.rData") # saved in analysis_v1.5_MFA.r
+load(here(data.dir,"MFA.hclust.plots.v1.6_pc3.rData"))# saved in analysis_v1.5_MFA.r
                                 #load dx and d.all.conds and dd, bars, cols_4
 
 #now plotting them together.
@@ -99,7 +101,8 @@ g1<-ggplot(aes(x = X, y = Y), data = tsne_df) +#labs(tag="F")+
                # geom_text_repel(label=paste(rownames(x.clean),as.factor(v_small)))  
         
         ###drawing cluster by tissue and isotype compartment
-        load(file="figure_cluster_data_by_compartment.RData") #load g3.ti, g4.ti and data set for plotting clustering                                                                   
+        load(file=here(data.dir,
+            "figure_cluster_data_by_compartment.RData")) #load g3.ti, g4.ti and data set for plotting clustering                                                                   
                                                                         #the 
                                                                         #saved in analysis_v1.6_cluster.r
                                                                         
@@ -131,7 +134,9 @@ g1<-ggplot(aes(x = X, y = Y), data = tsne_df) +#labs(tag="F")+
         g4.ti[[4]]<-g4.ti[[4]]+geom_text(data=data.frame(X=c(1.7),Y=c(-0.2)),
                     color="black", size=5, aes(label=c("Spleen+IgG")))            
                     
-           tiff(file="suppfigure6.cluster.tiff", width=600, height=1000)       
+           tiff(file=here(output.dir,
+                "suppfigure6.cluster.tiff"), 
+            width=600, height=1000)       
  
             ggarrange(g1, ggarrange(g4.ti[[1]],g4.ti[[2]],g4.ti[[3]],g4.ti[[4]], nrow=2, ncol=2, common.legend = TRUE, legend="bottom")
                 ,ncol=1, nrow=2, labels=c("A","B"), widths=c(1.5,2))
@@ -164,11 +169,12 @@ ind1.suppl.m<-ggplot(d.quali, aes(x=Dim.1, y=Dim.2, colour=group, group=group))+
                               )+theme(legend.title = element_blank())
  
 ### plot the sub fig E
-load(file="PCA_scree_plot.RData")#, g1,g2,g3,g4 )#,d.out is loaded in above. the file is saved in analysis_v1.6_MFA.r    
+load(file=here(data.dir,
+    "PCA_scree_plot.RData"))#, g1,g2,g3,g4 )#,d.out is loaded in above. the file is saved in analysis_v1.6_MFA.r    
 
 #plot the sub fig F for doing 
-load(file="fig6_PCA_partial.RData")#,d.quali.all.two.line, d.quali ) 
-       temp<-d.quali.all.two.line[d.quali.all.two.line$group=="Isotype"|d.quali.all.two.line$group=="Tissue",]
+load(file=here(data.dir,"fig6_PCA_partial.RData"))#,d.quali.all.two.line, d.quali ) 
+temp<-d.quali.all.two.line[d.quali.all.two.line$group=="Isotype"|d.quali.all.two.line$group=="Tissue",]
 k<-ggplot(data=temp)+
             geom_line(aes(x=Dim.1, y=Dim.2, colour=variable, group=groupVar, linetype=variable), size=1.5)+ 
             guides( shape=guide_legend(title="Group"))+
@@ -181,7 +187,8 @@ k<-ggplot(data=temp)+
             #        color="black", size=8, aes(label=rownames(d.quali.lab),x=Dim.1, y=Dim.2))+
             facet_wrap(.~group, ncol=2)+
             theme_bw(base_size=13)+theme(legend.position="right") 
- tiff(file="figure6.plot.v2.0.tiff", width=1000, height=1200)       
+ tiff(file=here(output.dir,"figure6.plot.v2.0.tiff"), 
+        width=1000, height=1200)       
  ggarrange(  #first level
             #drawing pc1 and 2 for doing isotye and tissue 
             ggarrange(ggarrange(ind1, ind2, ncol=1, nrow=2, labels=c("A","B")), ind3, ncol=2, nrow =1, widths=c(1.5,2)
@@ -200,7 +207,8 @@ dev.off()
 
  
 
- tiff(file="suppfigure6.partial_immune.tiff", width=700, height=500)       
+ tiff(file=here(output.dir,"suppfigure6.partial_immune.tiff"), 
+        width=700, height=500)       
  temp<-d.quali.all.two.line[d.quali.all.two.line$group=="Immunization",]
 ggplot(data=temp)+
             geom_line(aes(x=Dim.1, y=Dim.2, colour=variable, group=groupVar, linetype=variable), size=1.5)+ 

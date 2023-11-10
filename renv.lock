@@ -18,6 +18,13 @@
       "Source": "Bioconductor",
       "Hash": "c5f3f140470b1941580859d3fc5c6bc0"
     },
+    "AsioHeaders": {
+      "Package": "AsioHeaders",
+      "Version": "1.22.1-2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "85bf3bd8fa58da21a22d84fd4f4ef0a8"
+    },
     "BH": {
       "Package": "BH",
       "Version": "1.81.0-1",
@@ -438,6 +445,18 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "ac6cdb8552c61bd36b0e54d07cf2aab7"
+    },
+    "chromote": {
+      "Package": "chromote",
+      "Version": "0.1.2.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "chromote",
+      "RemoteUsername": "rstudio",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "84ac34038639b08cbd166e8cd48c8d9649c0d30d",
+      "Hash": "ee39adec6c5d0a4d15251d05bc5ebfe4"
     },
     "cli": {
       "Package": "cli",
@@ -999,6 +1018,13 @@
       "Repository": "CRAN",
       "Hash": "73ed88b282d27d4cf3d89b744aa21217"
     },
+    "magick": {
+      "Package": "magick",
+      "Version": "2.8.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "88a1be45614781633df69ab666d66143"
+    },
     "magrittr": {
       "Package": "magrittr",
       "Version": "2.0.3",
@@ -1378,6 +1404,20 @@
       "Repository": "CRAN",
       "Hash": "a69f815bcba8a055de0b08339b943f9e"
     },
+    "rgl": {
+      "Package": "rgl",
+      "Version": "1.2.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "e15c700c2670dfed2d997e5d275fcd07"
+    },
+    "rglwidget": {
+      "Package": "rglwidget",
+      "Version": "0.2.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "2bbf760cc4a277b304cd04439c6c8741"
+    },
     "rjson": {
       "Package": "rjson",
       "Version": "0.2.20",
@@ -1626,6 +1666,25 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "2c993415154cdb94649d99ae138ff5e5"
+    },
+    "webshot2": {
+      "Package": "webshot2",
+      "Version": "0.1.1.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "webshot2",
+      "RemoteUsername": "dmurdoch",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "d68c1928a12fe5b45d4e74430b2d35aa0f91e17e",
+      "Hash": "96bcb87b68832f9e93355cdf770e2bae"
+    },
+    "websocket": {
+      "Package": "websocket",
+      "Version": "1.4.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "76e0d400757e318cca33def29ccebbc2"
     },
     "withr": {
       "Package": "withr",

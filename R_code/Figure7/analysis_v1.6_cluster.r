@@ -187,8 +187,8 @@ library(umap)
 set.seed(4)
    #tsne_object <- Rtsne(x.dist, is_distance = TRUE, perplexity=5)
    umap_object<- umap(x.clean, scale=F#, init= "spectral"
-  )                                                                                    #, n_neigbors=10,min_dist=0.01, n_components=2
-                                                                                    )
+        #, n_neigbors=10,min_dist=0.01, n_components=2 
+      )
   # plot(umap_object$layout[,1], umap_object$layout[,2])
 #save(tsne_object, file="tsne.RData")
 #load(file="tsne.RData")
