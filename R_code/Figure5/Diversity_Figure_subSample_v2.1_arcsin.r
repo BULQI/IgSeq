@@ -1,71 +1,8 @@
 #R code to estimate the repertoire size
 #--- 
-# 3/20/2022
-# now we have new figure, only plot steady state comparison of isotype and tissue. 
-#           the old figure 5 is in v2.0.r
-#-----------
-#      3/14/2022
-#           add code to do derivative, but it turns out not good. we keep the code, but don't use the derivative.
-#--------------------
-# 1/15/2022 to do analysis with arcsin
-#           to highlight the changes of treatment.
-#------1/12/2022 ---- copied from Diversity_Figure_subSample.r
-#           the original one was used to plot the unnormalized and normalized for testing and supplementary figures
-#           but in this newer version of code, we draw only the normalized figures and make them ready for the manuscript.                   
-#   ---- 1/8/2022-----
-#copied from ..../newPipeline/Diversity/Diversity_Figure.r 
-#       to process the subsampling data here 
-#  check that original file to see the code for processing original data 
-#----------------------------------------------
-##############5/9/2021
-#copy to another file Diversity_Figure_tissue.r to do plotting for supplementary figures to show effects of 
-# tissue and isotype
-#we also modify the figure5 to show only treatment effect. do facet_grid and treatment effects.
-#
-#-----------------------------------
-#-----3/7/2021--Done with transformation. 3/31/2021
-# figure out that we need to transform the data (diversity q3)
-# see the code in /IgSeq_MS/manuscript/figure5/diversity_checkAssumption.R for 
-# code and results.
-#It makes sense for the transformation, since the diversity/hill numbers are effective counts.
-#
-#================
-##copied from Diversity_v1.0.R
-#in here we will try plot figures for the manuscript
-#we will plot only 4 groups instead of five, PBS, OVA, OVA+CpG, OVA+Alum
-# we will also reduce the number of HILL NUMBER points in order to do the analysis anova for 
-# testing significance.
-#1/25/2021
-#=========================
-#------updated 11/8/2020---------
-#copied from ReperotoireSize_v1.0.R for ../ folder.
-# we copied this here to do the diversity (hill numbers)
-#this is related to Reperotoire size since it calls/ is based on chao's work.
-#we will do by mouse by tissue diversity and we will do hill numbers with orders of 1,2,3. and also try to see whether 
-# we need to normalize the diversity. 
-#also true diversity vs. diversity index.
-#we will call Chao1 R package first and hopefully don't need to write our own code.
-#-------------------------------------------
-#==================below are the updates of the Reperotoire size code 
-#           -- by clone and by sample
-#           ---also by sequence.
-#will mainly use Chao estimators
-#-----Feng BU
-#---2020-10-18
-#=======================
-#save data clones.UID.list, :  
-#               clones.UID.list -- this is the one holding the Vgene Jgene and CDR3 used to identify and 
-#               clone/repertoire identity.
-#               clone.inc -- clone indicdence freq data. (not freq count data yet )
-#      used by rarefection/extrapolation.
-#      10/27/2020
-#=================
-#----
-#read recombinationSummaries data in and also save it as 
-#   "RecomSum.Rdata"
-#10/20/2020
-#also saved sequence inext and clone index for plotting and later use.
-#
+# Make sure you have read ./ReadMe.txt for instructions
+# of running scripts and preparing data.
+# 
 #----------------------
 
 library(SpadeR)

@@ -1,9 +1,8 @@
 #in this module we will write code to batch-calculate intra-clonal diversities of samples
-# this will run on linux
-#The original code for intra-clonal diversities is in ../DataAnalysis_v1.2_IntraClonalDiversity_nonSilentMu_cfun.R
-#
-#11/16/2020
-
+##
+# Make sure you have read ./ReadMe.txt for instructions
+# of running scripts and preparing data.
+# 
 ##library
 library(plyr)
 library(frLib)

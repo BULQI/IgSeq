@@ -1,46 +1,8 @@
 #####R modules to analyze the recombinations events.
-#--- update 9/28/2021
-#--- add to do analysis without zero mutation sequences in order to do mainly antigen-experienced sequences
-#
-#   #---update 8/31/2021
-#   added to save the ggplot 2 figures for use to plot the figure in other places.
-#
-#---------------updated 8/2?/2021
-#     added code to run analysis of CDR3 anova and plotting.
-#=======================
-#now in this module we would like to plot to compare between joined and unjoined data to show 
-# CDR3 lengths 
-#    8/5/2021
-#    copied from file:///home/feng/Feng/LAB/Wetzler_PorinB/wl03R2/newPipeline/Recombs/recomb_v1.0.R
-
-#########
-#=====   below are the old code notes 
-##save the nonproductive gene data from each sample (rec sum) and 
-##plot the overall CDR3 length, insertion and deletion (no individual fitting/analyzing)---
-#
-#------------------------------------------------------------------
-#note : in this module, we do analysis with overall recomb events. 
-# importantly, this model uses its own sets of functions and do NOT call the frLib for recombine deletion function.!!!
-#           please be careful.
-#=============================
-############################
-#update 1/16/2021
-#add code plot for figure 2 
-#     CDR3 and what else?
-#################################
-#add code for getting nonproductive recode more fields, "VGene", "DGene", "JGene"
-#we need that information for doing gene usage of nonproductive SP IgM
-#1/14/2021.
-#============================
-##Feng @bu 12/2/2020
-#The data was load from previously save data set. The data were saved in DataAnalysis_v1.0_geneUage_data.RData
-# 
-#see notes about the recombinations analysis in windows hg/Ig_MS/notesAboutAnalysisRecom
-#
-#Implementation note:
-#we might need to estimate the distribution of each recombination event using the MLE described in PNAS 2012 Statistical inferenace of generation function by Murugan.
-#in order to correct for the correlation between events. Still don't know how to adjust, but the idea is there.
-#=======================
+#    For Figure 4 in manuscript
+## Make sure you have read ./ReadMe.txt for instructions
+# of running scripts and preparing data.
+##=======================
 
 library(ggplot2)
 library(here)
@@ -52,8 +14,6 @@ library(emmeans)
 data.dir<-"Data/Figure4"
 output.dir<-"R_code/Figure4"
 
-#############doing the separated reads data first.
-#setwd("/home/feng/Feng/LAB/Wetzler_PorinB/wl03R2/newPipeline/")
 
 #read the data from previously saved
 load(here(data.dir,"All.RecSum.df.RData"))# list of  lists All.RecSum.bm, All.RecSum.sp; each of them are list of data frames
@@ -68,7 +28,6 @@ tissue<-c("Bone Marrow", "Spleen")
 
 #now we need to get by sample.
 #plot by samples, 
-#setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/figure1/CDR3_compare/")
 conditions$treatment<-factor(conditions$treatment, levels=c("PBS", "OVA", "OVA+PorB", "OVA+CpG", "OVA+Alum"))
 
 ########################now start doing the plotting of CDR3 length
@@ -92,11 +51,6 @@ rs$treatment<-conditions[rs$sampleName, "treatment"]
 ###get rid of porb
 rs<-rs[rs$treatment!="OVA+PorB",]
 rs<-rs[rs$CDR3Length<100,]
-
-#####################################################
-#get rid of zero mutation sequences.        NO!!!!!                                       ###
-#####################################################
-### <--   rs<-rs[rs$MuFreq>0,]
 
 
 #start plotting
@@ -201,8 +155,6 @@ Set1 <- list(
 emmeans::contrast (em_tr, Set1, adjust ='none')
 ec<-emmeans::contrast(em_tr, Set1, adjust='none')
 
-#setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/CDR3IgGSub/")
-#png("CDR3_treatment.png", width=800, height=550)
 png(file=here(output.dir, "Figure4_CDR3_treatment.png"),   #"CDR3_treatment_withZeroMu.png"), 
   width=800, height=550)
 cdr3<-ggplot(cdr3.mean, aes(y=CDR3Length, x=isotype, col=treatment))+
@@ -281,10 +233,3 @@ ggplot(data=cdr3.mean, aes(y=CDR3Length, x=treatment, col=tissue))+
                                                     , tissue=c("Bone Marrow")),
                     color="black", size=4, aes(label=c("p=0.05")))
 dev.off()
-
-
-
-
-
-
-

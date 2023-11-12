@@ -1,10 +1,8 @@
 #analysis to draw 3D gif movie to 
 # first 3 PCs of data arrangement
 
-# Originally from "analysis_v1.6_MFA.r"
-# and the data were generated and organized in that module
-#
-# Please run above code before this.
+# # Make sure you have read ./ReadMe.txt for instructions
+# of running scripts and preparing data.
 
 
  library(ggpubr)

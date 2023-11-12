@@ -1,34 +1,8 @@
 #R code to do the clustering analysis.
-#####-----7/18/2021
-#           doing pc of gene usage of 2 maximum ones.
-###                 see analysis_v1.0_cluster.r for first 4 pcs of gene usage
-####
-#--------------------------------------------------
-##      updated   7/17/2021-----
-##       add code to  cluster without PorinB group
-###           copy the code from file:///home/feng/Windows/windowsD/feng/LAB/MSI/MousePorB_lee_IgSeq/WL03/WL03R2/newPipeline/clustering/clusterWithLimitGU/GU_PC4/analysis_v1.0_cluster.r
-####
-#--------------------------------------------------------------
-###
-##-------------------7/10/2021
-#           adding code to limit the effects of gene usage.
-##                  run pca first and then select first 4 to do MFA.
-#--------------------------------------
-####
-#      --------7/9/2021----
-#cluster using all mfa n_components=55, explaining all variations
-# run cluster with on all pcs
-
-#--------
-#   update 6/24/2021
-##    add umap. and PCA results for doing cluster.
-################################
-#reading data from pca processed data. (see analysis_v1.0_MFA.R)
 #
-#we first try gower with missing value and then PAM
- ########the file copied from PJmaglione fold of doing cluster.
- #          ----6/22/2021
- #########################
+## Make sure you have read ./ReadMe.txt for instructions
+# of running scripts and preparing data.
+
  library(FactoMineR)
  library(missMDA)
  library(factoextra)
@@ -45,7 +19,6 @@ library(rARPACK)     #<-for getting the ***generalized*** eigen value and eigen 
 library(ggpubr)
 library(here)
  #read data.
-#setwd("/home/feng/Windows/windowsD/feng/LAB/MSI/MousePorB_lee_IgSeq/WL03/WL03R2/newPipeline/clustering")
 
 #
 data.dir<-"Data/Figure7"
@@ -112,14 +85,6 @@ d.out <- MFA(d.all.conds, group=group, type=c(rep("s", length(group)-3),"n","n",
                      graph=F)
 
 
-#setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/clustering/")
-#setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/clustering/pc3")                   
-#load(file="d.out.pc2.RData") 
-#load(file="d.out.pc3.RData") 
-                        #loaded  d.out and d.all.conds
-                        #d.out is the MFA output with 2 gene usage 
-                        # d.all.conds contains original data 
-                        #the data were saved by analysis_v1.6_MFA.r at ../MFA
 n_pcs<-14
 ######clean up the data 
 #x.clean<-d.all   #<-----
@@ -141,8 +106,7 @@ for(i in 2:30){
                  k = i)
   silhouette = c(silhouette ,pam_clusters$silinfo$avg.width)
 }
-#setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/clustering/")
-#setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/clustering/pc3")                   
+
 png(file=here(output.dir,"PAM_silhouette.png"), 
     width=1050, height=750)
 plot(2:30, silhouette,
@@ -168,31 +132,13 @@ library(Rtsne)
 library(ggplot2)
 library(ggrepel)
 library(umap)
-#set.seed(3456)#11234)#12345) <--- this is the one using the first 4 dimensions only for umap
-#gower distance
-#x.dist<-daisy(x.clean, metric=d_method, stand=F)
-                          #x.dist<-dist(x.clean, method="e") <----------
-#set.seed(1234)#<---this is the one for the pca components of 35
 
-######
-#set.seed(5679) 
- #set.seed (4321) 
- #set.seed(2345)#
- #set.seed(12345)#
-#
-#set.seed(2)#<-good
-#set.seed(100)
-#set.seed(1)
-#set.seed(2)
 set.seed(4)
    #tsne_object <- Rtsne(x.dist, is_distance = TRUE, perplexity=5)
    umap_object<- umap(x.clean, scale=F#, init= "spectral"
         #, n_neigbors=10,min_dist=0.01, n_components=2 
       )
-  # plot(umap_object$layout[,1], umap_object$layout[,2])
-#save(tsne_object, file="tsne.RData")
-#load(file="tsne.RData")
-#tsne_df <-tsne_object$Y %>%
+
 tsne_df <- umap_object$layout[,c(1,2)] %>%
   data.frame() %>%
   setNames(c("X", "Y")) %>%
@@ -283,8 +229,6 @@ make.affinity <- function(S, n.neighboors=2) {
 }
 
 
-
-
 #Calculate the affinity matrix, A, from S by applying k-nearest neighbors algorithm
             A <- make.affinity(x.sim,2)  # use 3 neighbors (includes self)   
                 #NOTE: neighbor # is very important, #=4, it will fail!!! and also in this spiral case 
@@ -353,16 +297,6 @@ make.affinity <- function(S, n.neighboors=2) {
             for(i in 1:csize){
                 v_small.list[[i]]<-which(v_small==i)
             }
-#            v_small.list[[1]]<-which(v_small==1)
-#            v_small.list[[2]]<-which(v_small==2)
-#            v_small.list[[3]]<-which(v_small==3)
-#            v_small.list[[4]]<-which(v_small==4)
-#            v_small.list[[5]]<-which(v_small==5)
-            
-            #reassign the clusters
-             
-             #adding triangle
-             # triangle vertex shape
             
             
             g = graph_from_adjacency_matrix(A.norm, mode = "undirected", weighted = TRUE, diag = FALSE)
@@ -416,57 +350,7 @@ png(here(output.dir,"umap_withSpectral_cluster2.png"),
       cols,file=here(data.dir,"g3.grey.rdata") )  
    
    
-   
-                               #####################################
-                               #     HDBScan  --- DO NOT RUN. for code demo
-                               ####################################3
-                               library(dbscan)
-                               #xdat<-as.data.frame(umap_object$layout)
-                               xdat<-as.data.frame(x.clean)
-                               cl<-hdbscan(xdat,minPts=3)  # minPts the minimal # of points to form a cluster.
-                               
-                               #
-                               kNNdistplot(xdat,k=4) #used to check for the eps. eps is used to determine the cut of hiearchical tree, or the level of the density for a real cluster.
-                                                        # check dbscan manual for explanation about how to use kNNdistplot to determine eps
-                               cld<-dbscan(x.dist, minPts=3, eps=1)
-                             
-                                            g4<-ggplot(aes(x = X, y = Y), data = tsne_df) +
-                                                geom_point(aes(shape=factor(paste0(conds$tissue,"+",conds$isotype)), color=factor(cld$cluster+1L)),size=10)+#, size=(x.complications.sum+1)*2)+
-                                                ggtitle("spectral clustering")+guides(col=guide_legend(title="Cluster",override.aes = list(size=5)),
-                                     shape=guide_legend(title="Tissue+Isotype",override.aes = list(size=5)))+
-                                            scale_color_manual(labels = c("noise", "1","2","3","4","5"), values=c(1:6))+ 
-                                            geom_text_repel(label=paste(rownames(x.clean),as.factor(cld$cluster)))
-                                            
-                            png("umap_withdbscan_cluster2.png", width=1100, height=700)   
-                               #ggarrange(h, g3,ncol=1, nrow=2) 
-                                g4
-                               dev.off()
-                               png("umap_withhdbscan_cluster1.png", width=1100, height=700)   
-                               #ggarrange(h, g3,ncol=1, nrow=2) 
-                                plot(cl,show_flat=T)
-                               dev.off()
-                               
-                               #======================================================
-                               #################doing the cluster by tissue and Isotype
-                               #+++++++++++++++++++++++++++++++++++++++++++++++++++++++
-                                                                    #==== dbscan======
-                               #xdat<-as.data.frame(umap_object$layout)
-                               xdat<-as.data.frame(x.clean)
-                               xdat<-cbind(xdat, conds[rownames(xdat),c("isotype", "tissue","treatment")])
-                               xdat.ti<-xdat[xdat$isotype=="IgG"& xdat$tissue=="Bone Marrow",]
-                               cl<-dbscan(xdat.ti[,c(1:n_pcs)],minPts=3,eps=0.4)  # minPts the minimal # of points to form a cluster.
-                               colnames(xdat.ti)[1:2]=c("X","Y")
-                               
-                               gt<-ggplot(aes(x = X, y = Y), data = xdat.ti) +
-                                                geom_point(aes(shape=factor(paste0(tissue,"+",isotype)), color=factor(cl$cluster+1L)),size=10)+#, size=(x.complications.sum+1)*2)+
-                                                ggtitle("dbscan clustering")+guides(col=guide_legend(title="Cluster",override.aes = list(size=5)),
-                                     shape=guide_legend(title="Tissue+Isotype",override.aes = list(size=5)))+
-                                            scale_color_manual(labels = c("noise", "1","2","3","4","5"), values=c(1:6))+ 
-                                            geom_text_repel(label=paste(rownames(xdat.ti),as.factor(cl$cluster)))
-                                            
-           ###########======================
-           #            END of HDBScan section ######
-           #################################
+
                 
                 ######========spectral clustering.
     #get data first
@@ -553,10 +437,7 @@ colnames(xdat)<-paste0("V",c(1:dim(x.clean)[2]))#c("V1","V2","V3","V4"))
         width=1200, height=1000)
      ggarrange(g4.ti[[1]],g4.ti[[2]],g4.ti[[3]],g4.ti[[4]], nrow=2, ncol=2, common.legend = TRUE, legend="bottom")
      dev.off()
-        
-        #save the data and 
-        #setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/clustering/pc3")
-        
+
         save(g3.ti, g4.ti, xdat.pc.ti, 
             xdat.umap.ti, isotype, tissue, 
             file=here(data.dir,"figure_cluster_data_by_compartment.RData")

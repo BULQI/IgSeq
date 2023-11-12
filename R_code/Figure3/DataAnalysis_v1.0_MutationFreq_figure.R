@@ -1,48 +1,11 @@
 #R code to analyze the heavy chain sequencing data, mutation frequency
-#now doing the mutation analysis for manuscript figure.
+#the mutation analysis for manuscript Figure 3.
 #
-# 9/29/2023  feng 
-#the latest one for using with zero data and all sequences.
-##
-#copied from /newPipeline/DataAnalysis_v1.0_mutation.R
-#---3/19/2022
-#    small modification for plotting saving data.
-#we will do without compisition. simply the mutation frequency
-#---------------update 12/27/2021
-#   add code to do comparison between OvA and other treated group for treatment effects.
-#
-##------------==============
-#-----------update 10/7/2020
-#   copied from LBSeq8/IgTotal/
-#   working on the data for LW03R2 which has been processed by the new pipeline 
-#
-#==================
-#-----update 5/6/2020
-# add code to plot the raw data distribution 
-#=========================
-#----update 4/10---
-#add code to do analysis with new on balance and least square mean post hoc 
-#and new plat
-#
-#==========================
-#-----updated 3/3/2020
-#add a full model for testing
-#
-############################
-#------------------------------
-# for mutation frequency analysis.
-#----updated 2/25/2020
-#do ilr with balance analysis
-##this is copied from WL03 previous run.
-#----1/30/2020
-#============================
-#------below is from previous
-#Feng @BU ----2/26/2019.
-#analyze to get MutationFreq
+## Make sure you have read ./ReadMe.txt for instructions
+# of running scripts and preparing data.
 #==========================
 library(plyr)
 library(frLib)
-#library(compositions)
 library(emmeans)
 library(multcompView)
 library(multcomp) #for doing coxbox transformation testing
@@ -319,10 +282,6 @@ model_ls<-lm(x~tissue*treatment*isotype, data=mu.means.np)
 bcx<-boxcox(model_ls)
 lamda<-bcx$x[which.max(bcx$y)]
 mu.means.np$trs<-(mu.means.np$x^lamda-1)/lamda
-#mu.means.np$x<-mu.means.np$trs
-#model_ls<-lm(log(x/(1-x))~tissue*treatment*isotype, data=mu.means.np)
-#model_ls<-lm(asin(sqrt(x))~tissue*treatment*isotype, data=mu.means.np)
-#model_ls<-lm(trans~tissue*treatment*isotype, data=mu.means.np)
 
 #testing for equal variance
 bartlett.test(x~tissue, data=mu.means.np)
@@ -334,10 +293,6 @@ model_ls<-lm(x~tissue*treatment*isotype, data=mu.means.np)
 shapiro.test(model_ls$residual)
 qqnorm(model_ls$residual)
 qqline(model_ls$residual)
-
-#hist(asin(sqrt(mu.means.np$x)))
-#mu.means.group<-mu.means.np[mu.means.np$]
-#kruskal.test(x~tissue*treatment*isotype, data=mu.means.np)
 
 
 Anova(model_ls, type=2)
@@ -537,12 +492,6 @@ m3way<-ggplot(data=mv, aes(x=isotype, y=mean, fill=treatment))+
                                             x=1.85,xend=2.325, y=0.0095, yend=0.0095)+
          geom_text(data=data.frame(tissue="Spleen", treatment="OVA", isotype="IgG"),
                                         x=2.05,y=0.01, label="p<0.05")#+
-     #geom_segment(data=data.frame(tissue="Spleen", treatment="OVA", isotype="IgG"),
-     #                                       x=1.65,xend=2.3, y=0.0115, yend=0.0115)+
-     #    geom_text(data=data.frame(tissue="Spleen", treatment="OVA", isotype="IgG"),
-     #                                   x=2.0,y=0.0119, label="p<0.08")
-#setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/figure4b/disnAllSize/")      
-   #setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/figure4b/discn0.25Size/")      
 tiff(file=here(output.dir,"muFreq3way_treatment.tiff"), 
     width=800, height=500)
 m3way
@@ -618,12 +567,6 @@ m3wayIso<-ggplot(data=mv.split, aes(x=treatment, y=mean, fill=isotype))+
                                             x=3.75,xend=4.25, y=0.0075, yend=0.0075)+
          geom_text(data=data.frame(tissue="Spleen", treatment="OVA", isotype="IgG"),
                                         x=4.05,y=0.008, label="p<0.001")#+
-#     geom_segment(data=data.frame(tissue="Spleen", treatment="OVA", isotype="IgG"),
- #                                           x=1.65,xend=2.3, y=0.0115, yend=0.0115)+
- #        geom_text(data=data.frame(tissue="Spleen", treatment="OVA", isotype="IgG"),
- #                                       x=2.0,y=0.0119, label="p<0.08")
- #mv.split<-mv
- 
  
  m3wayIso.pbs<-ggplot(data=mv.split[mv.split$section=="PBS",], aes(x=tissue, y=mean, fill=isotype))+
     geom_bar(stat="identity", position = position_dodge(width = 0.9))+
@@ -960,11 +903,7 @@ md<-ggplot(data=x, aes(x=treatment,y=the.emmean ))+
                                             label=c("Bone Marrow")),size=4)+
                                      geom_text(#data=data.frame(lower.CL=0, upper.CL=0, the.emmean=0.0005, treatment="OVA", isotype="IgG"),
                                         aes(x=0.45, y=-0.0005,
-                                            label=c("Spleen")),size=4)+
-                                  #facet_grid(.~isotype)
- #setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/figure4b/disnAllSize/")      
-# setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/figure4b/discn0.1Size/")                                      
-#setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/figure4b/")  
+                                            label=c("Spleen")),size=4)
 png(file=here(output.dir,"tissueDiffBar.png"), width=800, height=500)
 md
 dev.off(); 

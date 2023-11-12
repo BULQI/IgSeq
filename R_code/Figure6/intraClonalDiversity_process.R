@@ -1,17 +1,8 @@
 #R code to process intraclonal diversity results
 #
-#==========================
-#   10/4/2023
-# copied this from .../newpipeline/intraClonalDiversity_process.R
-#   we cleaned up the code and remove unnecessary lines
-#   please check the original file for the testing lines.
-#
-#--------------------------------------
-#
-#--------------------
-#save data for using later to plot figure.
-#the intraclonal diversity results were generated and downloaded to this filder.
-# 11/17/2020
+# Make sure you have read ./ReadMe.txt for instructions
+# of running scripts and preparing data.
+# 
 
 #library
 library(plyr)

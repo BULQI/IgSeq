@@ -1,5 +1,7 @@
 #R code to process intraclonal diversity results   ------- for figure 6 of the manuscript
-
+# Make sure you have read ./ReadMe.txt for instructions
+# of running scripts and preparing data.
+# 
 #library
 library(plyr)
 library(ggplot2)
@@ -15,6 +17,7 @@ library(MASS)
 
  
  data.dir<-"Data/Figure6"
+ output.dir<-"R_code/Figure6"
  load(here(data.dir, "clones.df.RData"))
  topn<-40#40#30#15 #20
  
@@ -25,11 +28,7 @@ library(MASS)
 #generated in ./intraClonal_batch.R  
 
 
-                    #data.array<-list(mi.BM.IgM.top20, mi.BM.IgG.top20, mi.SP.IgM.top20, mi.SP.IgG.top20)
-                    #name.array<-c("Bone Marrow (IgM)", "Bone Marrow (IgG)", "Spleen (IgM)", "Spleen (IgG)");
-                    #save(data.array, conditions, name.array, file="intraClonalDiversityDataArray.RData")
-#load("intraClonalDiversityDataArray_top75.RData")
-#load("intraClonalDiversityDataArray_top50.RData")#       
+                         
 load(here(data.dir,"intraClonalDiversityDataArray_top40.RData"))            
 
 
@@ -47,7 +46,7 @@ x<-rlm(MeanMuFreq~idi, data=mi.temp,psi=psi.huber)
 
 #####Note: now the data don't include PorB.
 #
-png("selection_gate.png", width=610, height=600)
+png(here(output.dir,"selection_gate.png"), width=610, height=600)
 plot(mi.temp$idi, mi.temp$MeanMuFreq, type="p", 
             xlab="Intra-clonal dissimilarity", ylab="Mean mutation frequency", main="Clonal Selection",
             xlim=c(0, 0.038), ylim=c(0,0.038))
@@ -72,28 +71,7 @@ cor(x.data[,1],x.data[,2])
 #### [1] 0.9647525
 #fit a data using negative clone data.
 x.negative<-rlm(MeanMuFreq~idi, data=x.data,psi=psi.huber )
-        ####
-        #> x.negative
-         #           Call:
-         #           rlm(formula = MeanMuFreq ~ idi, data = x.data, psi = psi.huber)
-         #           Converged in 9 iterations
-#
-         #            Coefficients:
-         #           (Intercept)         idi 
-         #           0.003220012 0.582808543 
-        #
-         #           Degrees of freedom: 234 total; 232 residual
-         #           Scale estimate: 0.000812 
-         #           > x
-        #            Call:
-        #            rlm(formula = MeanMuFreq ~ idi, data = mi.temp, psi = psi.huber)
-         #           Converged in 10 iterations
-        #    
-        #            Coefficients:
-         #           (Intercept)         idi 
-         #           0.003252463 0.584879257 
-
-
+        
 # with regular 
 x.negative.reg<-lm(MeanMuFreq~idi, data=x.data)
 #pdf("intraClonalDiversity.pdf")
@@ -153,7 +131,7 @@ load(here(data.dir,"intraClonalDiversity_intraD_top40.RData"))
 #interaction
 
 
-tiff("interaction.tiff", width=1100, height=700)
+tiff(here(output.dir,"interaction.tiff"), width=1100, height=700)
 op<-par(mfrow=c(2,2), mar=c(3,2.5,2,1.2), mgp=c(1.5,0.4,0.0), cex=1.25)
 interaction.plot(intraD$isotype, intraD$tissue,intraD.ilr[,1], xlab="isotype", 
             ylab="% diversified clone (transformed)" )
@@ -197,7 +175,8 @@ Set1 <- list(
   )
 emmeans::contrast (em_tr, Set1, adjust ='F')
 ec<-emmeans::contrast(em_tr, Set1, adjust='F')
-png("intra_treatmentEffect.png", width=850, height=1000)
+png(here(output.dir,"intra_treatmentEffect.png"), 
+  width=850, height=1000)
 plot(ec)+geom_segment(x=0, xend=0,y=0, yend=3.8, linetype=2, colour="red", size=1.5)+
     theme(text = element_text(size=25))
 dev.off()
@@ -210,7 +189,8 @@ Set1 <- list(
   "Bone Marrow - Spleen" = c(-1,1))#, "OVA/CpG - PBS"=c(-1,0,0,1,0), "OVA/PorB - PBS"=c(-1,0,1,0,0), "OVA - PBS"=c(-1, 1,0,0,0))
 emmeans::contrast (em_tr, Set1, adjust ='none')
 ec<-emmeans::contrast(em_tr, Set1, adjust='none')
-png("intra_tissueEffect.png", width=850, height=1000)
+png(here(output.dir,"intra_tissueEffect.png"), 
+  width=850, height=1000)
 plot(ec)+geom_segment(x=0, xend=0,y=0, yend=3.8, linetype=2, colour="red", size=1.5)+
     theme(text = element_text(size=20))
 dev.off()
@@ -223,7 +203,8 @@ Set1 <- list(
   "IgG - IgM" = c(-1,1))#, "OVA/CpG - PBS"=c(-1,0,0,1,0), "OVA/PorB - PBS"=c(-1,0,1,0,0), "OVA - PBS"=c(-1, 1,0,0,0))
 emmeans::contrast (em_tr, Set1, adjust ='none')
 ec<-emmeans::contrast(em_tr, Set1, adjust='none')
-png("intra_isotypeEffect.png", width=850, height=1000)
+png(here(output.dir,"intra_isotypeEffect.png"), 
+    width=850, height=1000)
 plot(ec)+geom_segment(x=0, xend=0,y=0, yend=3.8, linetype=2, colour="red", size=1.5)+
     theme(text = element_text(size=20))
 dev.off()
@@ -232,7 +213,8 @@ dev.off()
 
 
 #now plot the difference
-tiff("treatmentEffect_top40.tiff", width=900, height=800)
+tiff(here(output.dir,"treatmentEffect_top40.tiff"), 
+    width=900, height=800)
 te<-ggplot(data=dt.mod, aes(y=ilr, x=isotype, color=treatment))+
         #geom_point(aes(shape=treatment))+#lims(x=c(0.00, 0.034),y=c(0,0.04))+theme(legend.position = c(0.79, 0.18))+
         geom_boxplot(aes(shape=treatment), notch=F, notchwidth=0.1)+
@@ -266,7 +248,8 @@ em_tr<-emmeans(mod, ~tissue|treatment*isotype)
 Set1 <- list(
   "Bone Marrow - Spleen" = c(-1,1))#, "OVA/CpG - PBS"=c(-1,0,0,1,0), "OVA/PorB - PBS"=c(-1,0,1,0,0), "OVA - PBS"=c(-1, 1,0,0,0))
 ec<-emmeans::contrast (em_tr, Set1, adjust ='none')
-tiff("treatmentTissue_top40.tiff", width=900, height=800)
+tiff(here(output.dir,"treatmentTissue_top40.tiff"), 
+    width=900, height=800)
 ggplot(data=dt.mod, aes(y=ilr, x=treatment, color=tissue))+
         #geom_point(aes(shape=treatment))+#lims(x=c(0.00, 0.034),y=c(0,0.04))+theme(legend.position = c(0.79, 0.18))+
         geom_boxplot(aes(shape=tissue), notch=F, notchwidth=0.1)+
@@ -292,7 +275,8 @@ Set1 <- list(
   "IgG - IgM" = c(-1,1))#, "OVA/CpG - PBS"=c(-1,0,0,1,0), "OVA/PorB - PBS"=c(-1,0,1,0,0), "OVA - PBS"=c(-1, 1,0,0,0))
 emmeans::contrast (em_tr, Set1, adjust ='none')
 
-tiff("treatmentIsotype_top40.tiff", width=900, height=800)
+tiff(here(output.dir,"treatmentIsotype_top40.tiff"), 
+    width=900, height=800)
 ggplot(data=dt.mod, aes(y=ilr, x=treatment, color=isotype))+
         #geom_point(aes(shape=treatment))+#lims(x=c(0.00, 0.034),y=c(0,0.04))+theme(legend.position = c(0.79, 0.18))+
         geom_boxplot(aes(shape=isotype), notch=F, notchwidth=0.1)+
@@ -334,7 +318,8 @@ ggplot(data=dt.mod, aes(y=ilr, x=treatment, color=isotype))+
 dev.off()
 
 ####start doing the ploting of the figure 6
-png("figure6_top40.png", width=800, height=1100)
+png(here(output.dir,"figure6_top40.png"), 
+    width=800, height=1100)
 grid.newpage()
 pushViewport(viewport(layout = grid.layout(7, 6)))
 #pushViewport(viewport(layout.pos.row = ceiling(i/2), layout.pos.col = c(1:2)+(1-i%%2)*2))

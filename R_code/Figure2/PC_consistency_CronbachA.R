@@ -1,19 +1,14 @@
-
-
-
 #PC_consistency_CronbachA.R
 #R code to load the data and then calculate the cronbach alapha for each PC.
 
-# the data were saved in 
-#           DataAnalysis_V2.0_geneUsage_compsition_figure4_noZeroMu.r
+# Make sure to run the below script before this one
+#           DataAnalysis_V2.0_geneUsage_compsition_figure4.r
 
 #We did three things: Cronbach Alpha, split-half reliability on IGVH and samples.
 #       split-half did not work, since it tests whether the variation depends on IGVH and samples. 
 #                   of course it depends on them.!!!
 
 library(here)
-###note: alpha doesn't change much for different dl (lower limit of the clr data)
-#setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/figure4/noZeroMu")
 data.dir<-"Data/Figure2"
 output.dir<-"R_code/Figure2"
 load(here(data.dir,"pcaData_cronbachAlapha.RData"))    #data were saved DataAnalysis_V2.0_geneUsage_compsition_figure4_noZeroMu.r 

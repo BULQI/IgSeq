@@ -1,6 +1,7 @@
 #figure 2 plotting module. in here we load the data from previous work and draw the figure.
 #R
-#
+## Make sure you have read ./ReadMe.txt for instructions
+# of running scripts and preparing data.
 library(plyr)
 library(compositions)
 library(ggplot2)

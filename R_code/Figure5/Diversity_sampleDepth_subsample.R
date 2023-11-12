@@ -1,8 +1,10 @@
 #R code to determine the sample depth on diversity estimation.
-# 1/6/2022, we do subsampling to show the effect of sample depth on the diversity HILL numbers.
+# Do subsampling to show the effect of sample depth on the diversity HILL numbers.
 #    we also try to show the D(infinity) which is also called Berger Parker Index
 #
-
+#   Make sure you have read ./ReadMe.txt for 
+#   preparing data input and running this module.
+#
 #library(iNEXT)
 library(SpadeR)
 library(frLib)
@@ -11,13 +13,6 @@ data.dir<-"Data/Figure5"
 output.dir<-"R_code/Figure5"
 
 #read the data first
-
-#now the hardest part to generate the data that can be used by the packages, SpadeR and iNEXT
-#see the user guides for the two packages.
-#
-#read the saved data, which were saved by DataAnalysis_v1.0_clone_data.R
-#read the files 15 mice (5 group x 3 mice each and two tissue)
-#setwd("/home/feng/Feng/LAB/Wetzler_PorinB/wl03R2/newPipeline/")
 
 load(here(data.dir,"clones.Rdata")) # loaded with BM.clones, SP.clones and conditions, (list(IgG and IgM), list (IgG+IgM), data.frame)
                                                #clone.inc data , clone incidence freq data (not count data yet)

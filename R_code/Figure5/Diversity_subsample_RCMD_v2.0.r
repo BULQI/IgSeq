@@ -2,11 +2,10 @@
 #  #this is based on Diversity_sampleDepth_simulation.R
 #  this one we will do subsampling using the smallest number of 
 #   sequences. so we can compare the diversity profile.
-# this can be run on linux.
-#===================old notes down++++++++++++++++++++=
-# 1/6/2022, we do subsampling to show the effect of sample depth on the diversity HILL numbers.
-#    we also try to show the D(infinity) which is also called Berger Parker Index
-#
+#.
+# Make sure you have read ./ReadMe.txt for 
+#   preparing data input and running this module.
+
 
 #library(iNEXT)
 library(SpadeR)

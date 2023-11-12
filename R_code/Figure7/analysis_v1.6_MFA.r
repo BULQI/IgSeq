@@ -1,31 +1,6 @@
  # R code to read data and then do MFA (PCA)
- #########
- #----- 1/26/2022
- #          add partial point analysis to the grouping variables (supplementary)
- #
- ##    12/9/21---
- #    now decide to run pc 3 (3 pcs of gene usage )
- #          and also save everything to clustering/pc3 
- #          remove mutation sd and cdr3 sd (keep only cdr3 length). 
- ###---------------------
- #  --------------7/18/2021
- #           doing first 2 pcs of gene usage for MFA. 
- #                          check the file analysis_v1.5_MFA.r for first 4 pcs of gene usage 
- ########
- ###---------7/16/2021------
- #   doing analysis for manuscript without the porinB group
- #          copied from file:///home/feng/Windows/windowsD/feng/LAB/MSI/MousePorB_lee_IgSeq/WL03/WL03R2/newPipeline/clustering/MFA/analysis_v1.5_MFA.r
- ####
- #=================
- #  7/10/2021
- # start doing  all variables without BM09
- #          copied from ../analysis_v1.0_MFA.r and ../analysis_v1.5_cluster.r
- #  Also we need to limited the gene usage affects.
- #========================
- #-----Feng 4/13/2021
- 
- #read the data (saved in analysis_v1.0_data.R)
- # using FactoMineR
+ ## Make sure you have read ./ReadMe.txt for instructions
+# of running scripts and preparing data.
  
  library(FactoMineR)
  library(missMDA)
@@ -207,15 +182,6 @@ ind2<-fviz_mfa_ind(d.out, axes=c(1,3),geom = c("point"),#"text"),
                     mode="markers", color=paste0(conds$tissue,"+",conds$isotype), colors=c("#00AFBB", "#E7B800", "#FC4E07", "green", "purple")#, 
                     #name=rownames(d.quali), symbol=~group,symbols=c('circle','diamond','square')
                     )
-#ggplot(data=dd, aes(x=Dim.1, y=Dim.2, color=is_ti, group=is_ti))+
-#        geom_point(aes(shape=is_ti),size=6)+#lims(x=c(0.00, 0.034),y=c(0,0.04))+theme(legend.position = c(0.79, 0.18))+
-#        geom_encircle(expand=0)+#stat_ellipse(level=0.5) +  ###add the circles 
-#        theme()
-
-#fviz_mfa_ind(d.out, col.ind = "coord", axes=c(1,2), habillage=as.factor(paste0(conds$tissue,"_", conds$isotype)),
-#            addEllipses =T,
-#            #gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"),
-#             repel = TRUE)  
 
 ind2.2<-  ggplot(data=dd, aes(x=Dim.1, y=Dim.3, color=tissue, group=is_ti))+
         geom_point(aes(shape=isotype),size=4)+#lims(x=c(0.00, 0.034),y=c(0,0.04))+theme(legend.position = c(0.79, 0.18))+
@@ -246,16 +212,6 @@ ggarrange(ggarrange(ind1, ind2, nrow=1, ncol=2, labels=c("A", "B")),
 
 
 
-#fviz_mfa_ind(d.out, geom = c("point","text"), 
-#             habillage = as.factor(paste0(conds$isotype, conds$tissue, conds$treatment)), # color by groups 
-#             #palette = c("#00AFBB", "#E7B800", "#FC4E07", "green", "purple"),
-#             addEllipses = TRUE, ellipse.type = "convex", ellipse.level=0.95,#level.conf=0.68,
-#             repel = TRUE #,# Avoid text overlapping
-#              #shape.ind=19, pointsize=3,select.ind=list(name=paste0("MB", c(1:15),"_IgM")),
-#             ) +theme(text = element_text(size=15), legend.text=element_text(size=18))+
-#              guides(color = guide_legend(override.aes = list(size = 3) ) )              
-
-
 ind1.suppl<-fviz_mfa_ind(d.out, col.ind = "contrib", axes=c(1,2), habillage="none",#as.factor((conds.noBM9$isotype)),
             addEllipses =F,# ellipse.type = "t", ellipse.level=0.95,#level.conf=0.68,
             select.ind=list(name=c("not existing")),#select.var=list(name=c("isotype")),
@@ -273,8 +229,6 @@ d.quali<-as.data.frame(d.out$quali.var.sup$coord)
              d.quali$group<-factor(d.quali$group)
              #draw it with clolor "manually"
 
-#library(umap)
-#umap_object<- umap(d.quali[,c(1:7)], scale=F, init= "spectral", min_dist=0.01, n_components=2)             
 ind1.suppl.m<-ggplot(d.quali, aes(x=Dim.1, y=Dim.2, colour=group, group=group))+
                     geom_point(aes(shape=group), size=6)+ #xlim(c(-0.5, 0.5))+
                     geom_text_repel(
@@ -392,10 +346,6 @@ ggplot(data=temp)+
   save(file=here(data.dir,"data_for_3d_gifmovie.RData"),
     dd, d.quali)
     
-  ##########################################
-  ###doing rotation movie gif 
-  ##########################################
-  # need to go to the temp directory to manually copy over the movie gif.
   
 
 #######################NOTE: be really careful, the following chunk are optimized for pc2 data. don't change it yet.

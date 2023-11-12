@@ -3,6 +3,9 @@
 #
 #  prepare the data for figure5 plotting.
 #
+#Make sure you have read ./ReadMe.txt for 
+#   preparing data input and running this module.
+#
 library(ggplot2)
 library(here)
  library(ggpubr)

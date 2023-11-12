@@ -1,79 +1,11 @@
 #R code to analyze the heavy chain sequencing data
 #
-##=====-----make-up notes: 8/11/2023; this is for make up the previous run
-#    this is the latest one that run on all sequences (not just zero or no zero mutation sequences.)
+# prepare and process data to make them ready for 
+# generating Figure 2 in the manuscript.(see ./ReadMe.txt)
 #
-##=======================-------------------------------------
-#10/26/2021   ---- updated
-#  change different conditions for testing:
-#    zero mutation sequences.
-#   remove the IGHV reads with too few (originally were <250, now it is <700 and also try <1000 total reads.)
-#   Scaled and CENTERED, before doing PCA !!!
-#   we also spent much time testing the best way to replace zero values since we need to do scale and ratio --a (see line 114 and line 120.)
-# final paramter: no scale of zero replace value and ratio of 2/3
-#           remove <700 total number of reads IGHV
-#           centered, but not scaled for pca and clr data.
-##===========================
-#  4/4/2021 ----
-## modify the code to plot loading and pcs separately and also 
-#       change to VC1 
-#   output the top 10 genes both directions 
-#
-#######
-#3/12/21, add code to plot the individual lines of top 10 from both end showing the treand.
-# Feng
-#====
-#3/5/2021. copied from the v1.0 version. in this version we will do heatmap on the "raw" data for each
-# IGHV to confirm the PC effects.
-#
-#=====================
-#now this is the one doing version, to show the individual effect with raw data like figure 4e, f.  
-#meaning to confirm the PC effects by the raw data.(raw percent data)
-# next version v2.0, try to show the pc effect by heatmap (centered and scaled effects for each IgV genes)
-#====
-#updatecd 2/12/2021
-# we also add code to remove zoro counts and also we need to do contrast for doing type III anova.
-# type I and II we don't have to do that.
-# need to set up factors to do post hoc correctly with contrast. 
-#-================
-#copied from /newPipeline/DataAnalysis_v1_geneUsage_composition.R2
-# read the saved data 
-# plot for figure 4.
-#-----------------------------------
-#copied from LBSeq8
-#  doing the gene usage analysis for wl03R2 new pipeline.
-#      10/5/2020
-#----------------------------- 
-#LBSeq 8, copied from WL03 R2 isotype folder.
-#   doing gene usage analysis.
-#   In here we read the data from previous save RData. 
-#  DataAnalysis_v1.0_geneUsageData.R (previously DataAnalysis_v1.0_geneUsage.R)
-#     -------2/18/2020
-#-----------------
-# WL03, IgSeq
-#Feng @BU ------1/30/2020.
-# this one is copied from previous work WL03 analysis
-#In here we read the data from previous save RData. 
-#  DataAnalysis_v1.0_geneUsageData.R (previously DataAnalysis_v1.0_geneUsage.R)
-#then we do analysis using composition.
-#
-#--------------the below part is from the previous version. Read them in caution.---
-#Plan 1) do gene usage to compare between groups
-#	  2) 
-#-------
-##5/28/2019
-#  1) using composition to do the analysis
-#		i) linear model /anova for difference
-#		ii) tSNE for overa pattern
-#		iii)PCA for pattern, each component for different pairwise different  
-#		iv) cluster for grouping.
-#  2) reading the data from each group and each tissue.
-#		this is done in file "DataAnalysis_v1.0_geneUsage.R"
-#		two lists BM.usage and SP.usage are saved. They are two
-#			lists contains the v, d, j gene usage and conditoins and totalIgs
-##------------
-##6/3/2019
-#1) new data. new analyzed data set. because the old processing have lots 
+# Please go to ../../Data/Figure2 to prepare
+#  the input data for this module. 
+#  see ../../Data/ReadMe.txt for details.
 #==========================
 library(plyr)
 library(compositions)
@@ -88,17 +20,10 @@ library(car)
 library(ggfortify)
 
 #set working directory first
-#do SP first
-#setwd("E://feng//LAB//MSI//MouseLungProject//LBSeq8//IgTotal")
-#setwd("/home/feng/Windows/windowsD/feng/LAB/MSI/MouseLungProject/LBSeq8/IgTotal")
-#setwd("/home/feng/Feng/LAB/Wetzler_PorinB/wl03R2/newPipeline/")
 data.dir<-"Data/Figure2"
 output.dir<-"R_code/Figure2"
 load(here(data.dir, "sample.geneUsage.RData"))  # save in newPipeline/DataAnalysis_v1_geneUsage_data.r  <-all sequences
                                                                                #and DataAnalysis_v1_geneUsage_data_noZeroMu. <-no zero sequences
-#load("sample.geneUsage_noZeroMu.RData")                                                                               
-#so far 4 lists loaded, BM/SP IgG/IgM and conditions
-
 #============================
 #   IgG/IgM, BM/Spleen, Treatment
 #++++++++++++++++++++++++++++
@@ -162,19 +87,10 @@ conditions.all<-rbind(conditions.all, temp)
 dt.clr<-cbind(dt.clr, conditions.all)
 
     ##########################
-    #     new notes:: here!!! 
-    #     do we need to save the data here???
-    #     need to check later
-    #  Yes, we need this for the later figure 7 to use
+    #  We need to save this for the later figure 7 to use
     ############################
-#//now save the data, so they can be used by clustering and MFA in figure 6.
-#setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/figure4/")
-   save(file=here(data.dir,"geneUsage_all_clr.RData"), dt.clr)
 
-##end of checking for saving section 
-
-
-
+save(file=here(data.dir,"geneUsage_all_clr.RData"), dt.clr)
 
 #now start doing the visualization
 #observation is sample/subject
@@ -198,12 +114,12 @@ dt.clr<-cbind(dt.clr, conditions.all)
 	dt.clr.data.scaled<-scale(dt.clr.data, scale=F, center=T)	
    #pca.VGene.ilr<-pcaCoDa(data.frame(usage.VGene.ilr))
    #pca.VGene.ilrd<-prcomp(data.frame(usage.VGene.ilr), scale=T)
-#   setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/figure4/")
    png(file=here(output.dir,"pc_AllPooled_dlScaleNo.png"), width=500, height=500)
    num.pc<-30
    plot(seq(1,28,1),(pca.VGene.clrd$sdev^2/sum(pca.VGene.clrd$sdev^2))[seq(1,28,1)],type="b",
-		main="PC contribution", xlab="PCs", ylab="portion",ylim=c(0,1.05), col=2, pch=15
-	)
+		  main="PC contribution", xlab="PCs", ylab="portion",ylim=c(0,1.05), col=2, pch=15
+	 )
+   
    lines(seq(1,num.pc,1),summary(pca.VGene.clrd)$importance[3,seq(1,num.pc,1)],type="b")
    lines(c(0,num.pc),c(0.05,0.05), lty=2, lwd=2,col=3)
    lines(c(6,6),c(0,1.9), lty=2, lwd=2,col=2)
@@ -225,8 +141,7 @@ dt.clr<-cbind(dt.clr, conditions.all)
             geom_segment(x=0,xend=50, y=0.05,yend=0.05, colour="red", linetype=3 )+
             annotate(geom="text", label=c("Accumulative", "Individual"), x=c(25,25),y=c(0.9, 0.1), colour="red",size=7 )+
             theme(plot.title= element_text(margin = margin(b = -20), hjust=0.01))
-	#   lines(c(0,64),c(0.015,0.015), lty=2, lwd=2,col=3)
-
+	
 g<-autoplot(pca.VGene.clrd,x=1,y=2,data=dt.clr.all, #colour="isotype",shape="tissue",
 				label=F ,frame=F,  size=-1,#frame.type="t"
 			loadings=T, loadings.label=T, loadings.label.size=4, loadings.colour="orange", loadings.label.colour="red"
@@ -268,10 +183,12 @@ J<-autoplot(pca.VGene.clrd,x=5,y=6,data=dt.clr.all, colour="treatment",
 
 #save for plotting in the future.
 save(file=here(data.dir,"pca_loading.RData"), g, g2, h, J, pca.VGene.clrd, cn, dt1 , dt.clr.all)
-  #now do linear regressoin/anova
-  png(file=here(output.dir,"pca_represent_isotypeTissue.png"),width=500, height=500)
+  
+#now do linear regressoin/anova
+png(file=here(output.dir,"pca_represent_isotypeTissue.png"),width=500, height=500)
   g2
-  dev.off()
+dev.off()
+
   ####now let's do anova 
 	sample.conditions<-conditions.all[conditions.all$treatment!="OVA+PorB",]#sample.usage[["conditions"]]
 
@@ -311,7 +228,7 @@ model.ind.anova$p.adj<-p.adjust(model.ind.anova$"Pr(>F)", method="fdr")
 #sort(model.ind.anova$p.adj)
 
 #now we start doing the Post hoc tests
-#                              for PC1       <-------------------
+# for PC1       <-------------------
 
 pcs<-1
 dt.mod<-data.frame(ilr=pca.VGene.clrd$x[,pcs], treatment=sample.conditions$treatment, isotype=sample.conditions$isotype, tissue=sample.conditions$tissue)
@@ -323,12 +240,7 @@ em_tr<-emmeans(mod, ~treatment|tissue*isotype)
 #em_tr %>% test(joint=F)
 
 Set1 <- list(
-  #"OVA/Alum - PBS" = c(-1,0,0,1), "OVA/CpG - PBS"=c(-1,0,1,0), 
-   #             #"OVA/PorB - PBS"=c(-1,0,1,0,0), 
-   #             "OVA - PBS"=c(-1, 1,0,0)
     "OVA/Alum - PBS" = c(-1,0,0,1), "OVA/CpG - PBS"=c(-1,0,1,0), "OVA - PBS"=c(-1, 1,0,0)
- # "IgM - IgG" = c(-1,1)#, "OVA/CpG - PBS"=c(-1,1)
-#   "Bone Marrow - Spleen" = c(1,-1)
   )
 
 ec<-emmeans::contrast(em_tr, Set1, adjust='FDR')
@@ -1094,52 +1006,6 @@ trendline$geneIsotype=trendline$sign
            
 
 
-
-
-        ##################################
-        ####now do the plotting for output   ###
-        ###################################
-#figure 4 in the main text  <-- now this is obsoleted, 
-#   please go to the R code, figure4_plotting_v1.0.R
-
-tiff(here(output.dir,"figure4_2.tiff"), 
-    width=1200, height=2000)
-ggarrange(
-#level 1 for 
-     ggarrange(  cn, g,  g2,
-                          ncol = 3, nrow = 1, labels=c("A","B","C")
-                          ),  
-#level 2 for PC1 treatment
-     ggarrange(  pc1.tr,  pc1.line,
-                            #ggarrange(effect.ind.pc1[[3]], effect.ind.pc1[[1]],
-                            #        ncol = 1, nrow = 2, labels=c("E","F")
-                            #    ),
-                         ncol = 2, nrow = 1, labels=c("D","E")
-                         ),  
-#level 3 for PC1 tissue
-#     ggarrange(  pc1.ti, 
-#                                ggarrange(effect.ind.pc1_2[[1]], effect.ind.pc1_2[[3]],
-#                                       ncol = 1, nrow = 2, labels=c("H","I")
-#                                ),
-#                          ncol = 2, nrow = 1,  labels=c("G")
-#                          ),                            
-#level 4 for PC2 tissue
-     ggarrange( tr.pc2, pc2.line,
-                            #ggarrange(effect.ind.pc2[[1]], effect.ind.pc2[[3]],
-                            #     ncol = 1, nrow = 2, labels=c("H","I")
-                            #),
-                          ncol = 2, nrow = 1,  labels=c("F","G")
-                          ),     
-#level 5 for PC4 tissue
-#  ggarrange(  treat.pc4,  pc4.line,
-                            #ggarrange(effect.ind.tr.pc4[[4]], effect.ind.tr.pc4[[2]],
-                            #       ncol = 1, nrow = 2, labels=c("K","L")
-                            #),
-#                          ncol = 2, nrow = 1, labels=c("H","I")
- #                         ),                           
-    ncol = 1, nrow = 3, heights=c(2,3,3)#, labels=c("A","D","F","H","J"),
-    )
-dev.off()
 
 
 

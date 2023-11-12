@@ -1,4 +1,4 @@
-# IgSeq v1.0.0
+# IgSeq v1.0.0 Release 2.0
 Code for IgSeq data analysis
 
 Reference: Characterizing adjuvants’ effects at the murine immunoglobulin repertoire level ([Preprint](https://doi.org/10.1101/2022.11.19.517218 ))
@@ -19,3 +19,10 @@ There are two folders: DataPreprocessing_code and R_code. The former contains co
 ## Raw IgSeq data
 
 The raw IgSeq data were submitted to the NIH GEO repository. It can be found at https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE228856 . The record number is GSE228856.
+
+## Updates
+
+- Have made the data available for downloading from the google drive (see link in folders at the /Data directory for each figure)
+
+- The R scripts are tested and work for Figure 2 to 5.
+

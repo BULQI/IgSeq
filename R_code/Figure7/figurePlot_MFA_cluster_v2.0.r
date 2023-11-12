@@ -1,9 +1,7 @@
 #R code to load the previously saved ggplot2 objects for plotting 
 #    figures.
-#
-#---9/19/2021
-#re-arrange the plot to show different components
-#
+# Make sure you have read ./ReadMe.txt for instructions
+# of running scripts and preparing data.
 
 
 #library
