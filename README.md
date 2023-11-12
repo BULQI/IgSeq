@@ -19,3 +19,8 @@ There are two folders: DataPreprocessing_code and R_code. The former contains co
 ## Raw IgSeq data
 
 The raw IgSeq data were submitted to the NIH GEO repository. It can be found at https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE228856 . The record number is GSE228856.
+
+## Note:
+
+Please pull code from **the branch "release_v2.0"**, which contains fully functioning R scripts for plotting all figures in the manuscript. That branch also provides the code to the data links for generating figures and results.
+
