@@ -63,7 +63,9 @@ h<-autoplot(pca.VGene.clrd,x=1,y=2,data=dt.clr.all, colour="treatment",shape="is
     
 
 
-tiff(here("Output","figure4_3.tiff"), width=1200, height=1400)
+pdf(here("R_code/Figure2","figure4_3.pdf"), 
+    width=1200/72, height=1400/72# , res=300, pointsize=1
+    )
 ggarrange(
 #level 1 for 
      ggarrange(  cn, g,  h,

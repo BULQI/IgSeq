@@ -15,6 +15,8 @@ library(MASS)
 
  
  data.dir<-"Data/Figure6"
+ output.dir<-"R_code/Figure6"
+
  load(here(data.dir, "clones.df.RData"))
  topn<-40#40#30#15 #20
  
@@ -334,7 +336,9 @@ ggplot(data=dt.mod, aes(y=ilr, x=treatment, color=isotype))+
 dev.off()
 
 ####start doing the ploting of the figure 6
-png("figure6_top40.png", width=800, height=1100)
+pdf(file=here(output.dir,"figure6_top40.pdf"), 
+  width=800/72, height=1100/72, onefile=FALSE
+  )
 grid.newpage()
 pushViewport(viewport(layout = grid.layout(7, 6)))
 #pushViewport(viewport(layout.pos.row = ceiling(i/2), layout.pos.col = c(1:2)+(1-i%%2)*2))

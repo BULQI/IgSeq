@@ -80,7 +80,8 @@ load(file=here(data.figure3.dir,"m3way_tisIso.RData")) #m3wayTis2, m3wayIso, als
 # setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/figure4b/")        
  
 #  png("figure2_v2.1.png", width=750, height=850)
- png(file=here(output.dir,"figure2_v5.2.png"), width=1050, height=750)
+ pdf(file=here(output.dir,"figure2_v5.2.pdf"), 
+  width=1050/72, height=750/72)
  ggarrange(
                         ggarrange(ggarrange(m3wayIso.pbs, m3wayTis.pbs,
                         nrow=1, ncol=2,widths=c(1,1),labels=c("A","B")), m3way,  
