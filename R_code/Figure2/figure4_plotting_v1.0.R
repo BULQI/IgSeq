@@ -14,6 +14,7 @@ library(ggfortify)
    #setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/figure4")
    #load for pca loadings
    data.dir<-"Data/Figure2"
+   output.dir<-"R_code/Figure2"
    load(file=here(data.dir,"pca_loading.RData"))# saved in DataAnalysis_v2.0_geneUsage_compistion_figure4.r
                                                         #loaded with : g, g2, h, J, pca.VGene.clrd, cn, dt1
 
@@ -64,7 +65,7 @@ h<-autoplot(pca.VGene.clrd,x=1,y=2,data=dt.clr.all, colour="treatment",shape="is
     
 
 
-tiff(here("Output","figure4_3.tiff"), width=1200, height=1400)
+tiff(here(output.dir,"figure4_3.tiff"), width=1200, height=1400)
 ggarrange(
 #level 1 for 
      ggarrange(  cn, g,  h,
