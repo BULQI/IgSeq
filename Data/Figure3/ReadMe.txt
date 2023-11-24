@@ -4,9 +4,10 @@ This folder are used to hold the data for plotting Figure 3 in the manuscript. T
 (*.Recombinationsummaries.txt).
 These files are saved at ../SP and ../BM.
 
-There are two way to generate it: 
-    i) Run the steps in /DataPreprocessing_code folder to finish the data proprocessing and then run the scripts in /R_code/DataPrepare.
-    ii) Download the data prepared by the author from
+To prepare the data: 
+    
+    Download the data prepared by the author from
+    
     https://drive.google.com/file/d/1LSXHZsTFrmyRXzYXn3T2W2-Znr12ClpT/view?usp=sharing
 
     and 
