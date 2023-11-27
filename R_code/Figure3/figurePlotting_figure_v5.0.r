@@ -48,7 +48,9 @@ load(file=here(data.figure3.dir,"m3wayIso_split.RData")) # load m3wayIso.pbs, m3
 load(file=here(data.figure3.dir,"m3way_tisIso.RData")) #m3wayTis2, m3wayIso, also need the data frame mv that is save in the above treatment fig and data frame.
                                                                     #also  m3wayTis.pbs, mv.split.tis,
 
- png(file=here(output.dir,"figure2_v5.2.png"), width=1050, height=750)
+ pdf(file=here(output.dir,"figure2_v5.2.pdf"), 
+  width=1050/72, height=750/72)
+
  ggarrange(
                         ggarrange(ggarrange(m3wayIso.pbs, m3wayTis.pbs,
                         nrow=1, ncol=2,widths=c(1,1),labels=c("A","B")), m3way,  

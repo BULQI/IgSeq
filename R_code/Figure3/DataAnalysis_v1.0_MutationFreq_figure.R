@@ -826,21 +826,21 @@ w=0.1
 x$min_y<-x$the.emmean-x$SE*0.6
 x$max_y<-x$the.emmean+x$SE*0.6
 md.line<-ggplot(data=x, aes(x=treatment,y=the.emmean, colour=isotype, group=isotype  ))+
-                                        ylab("Mu Freq Difference\n (Bone Marrow - Spleen)")+geom_point(aes(), size=5)+
-                                       geom_line(size=0.25, linetype="dotted")+scale_x_discrete(expand=expansion(-0.0,0.0))+
-                                       theme (text=element_text(size=16),axis.title.x = element_blank())+
-                                      geom_errorbar(aes(ymin=min_y, ymax=max_y), width=.0)+
-                                       geom_segment(aes(x=0.8, xend=4.2, y=0.0, yend=0),size=0.8, colour="grey", linetype=2)+
-                                       geom_text(#data=data.frame(lower.CL=0, upper.CL=0, the.emmean=0.0005, treatment="OVA", isotype="IgG"),
-                                        aes(x=1.1, y=0.0002,
-                                            label=c("Bone Marrow")), hjust=0,size=5,colour="red")+
-                                     geom_text(#data=data.frame(lower.CL=0, upper.CL=0, the.emmean=0.0005, treatment="OVA", isotype="IgG"),
-                                        aes(x=1.1, y=-0.0002,
-                                            label=c("Spleen")), hjust=0,size=5, colour="red")+
-                                    geom_segment(aes(x=1.0, xend=1.0, y=0.0001, yend=0.0005),
-                                                                                    arrow = arrow(length = unit(0.2, "cm"),type="closed"), size=1, colour="red", linetype=1)+
-                                    geom_segment(aes(x=1.0, xend=1.0, y=-0.0001, yend=-0.0005),
-                                                                                    arrow = arrow(length = unit(0.2, "cm"),type="closed"), size=1, colour="red", linetype=1)#+
+              ylab("Mu Freq Difference\n (Bone Marrow - Spleen)")+geom_point(aes(), size=5)+
+             geom_line(size=0.25, linetype="dotted")+scale_x_discrete(expand=expansion(-0.0,0.0))+
+             theme (text=element_text(size=16),axis.title.x = element_blank())+
+            geom_errorbar(aes(ymin=min_y, ymax=max_y), width=.0)+
+             geom_segment(aes(x=0.8, xend=4.2, y=0.0, yend=0),size=0.8, colour="grey", linetype=2)+
+             geom_text(#data=data.frame(lower.CL=0, upper.CL=0, the.emmean=0.0005, treatment="OVA", isotype="IgG"),
+              aes(x=1.1, y=0.0002,
+                  label=c("Bone Marrow")), hjust=0,size=5,colour="red")+
+           geom_text(#data=data.frame(lower.CL=0, upper.CL=0, the.emmean=0.0005, treatment="OVA", isotype="IgG"),
+              aes(x=1.1, y=-0.0002,
+                  label=c("Spleen")), hjust=0,size=5, colour="red")+
+          geom_segment(aes(x=1.0, xend=1.0, y=0.0001, yend=0.0005),
+                                                          arrow = arrow(length = unit(0.2, "cm"),type="closed"), size=1, colour="red", linetype=1)+
+          geom_segment(aes(x=1.0, xend=1.0, y=-0.0001, yend=-0.0005),
+           arrow = arrow(length = unit(0.2, "cm"),type="closed"), size=1, colour="red", linetype=1)#+
                                      #geom_segment(#data=data.frame(lower.CL=0, upper.CL=0, the.emmean=0, treatment="OVA", isotype=x[1,2]),
                                     #            aes(x=1, xend=2, y=0.0043, yend=0.0043),
                                     #                    size=1,  linetype=1)+
@@ -904,6 +904,7 @@ md<-ggplot(data=x, aes(x=treatment,y=the.emmean ))+
                                      geom_text(#data=data.frame(lower.CL=0, upper.CL=0, the.emmean=0.0005, treatment="OVA", isotype="IgG"),
                                         aes(x=0.45, y=-0.0005,
                                             label=c("Spleen")),size=4)
+
 png(file=here(output.dir,"tissueDiffBar.png"), width=800, height=500)
 md
 dev.off(); 

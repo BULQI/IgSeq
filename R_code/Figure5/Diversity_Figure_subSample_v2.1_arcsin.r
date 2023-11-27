@@ -474,17 +474,17 @@ q3.tr<-ggplot(data=dt.mod, aes(y=q3, x=isotype, color=treatment))+
     p4<-p4+theme (plot.title = element_text(size=11))
     
 #    setwd("/home/feng/Windows/windowsD/feng/LAB/hg/IgSeq_MS/manuscript/figure5/subsample")
-tiff(file=here(output.dir,"diversity_proportionNorm_figure5_arcsin_v2.0.tiff"), 
-    width=1300, height=850)
+pdf(file=here(output.dir,"diversity_proportionNorm_figure5_arcsin_v2.0.pdf"), 
+    width=1300/72, height=850/72,
+    onefile=FALSE)
 ggarrange(
-                            ggarrange(iso.unnorm, ggarrange(p2, p1,  p4, p3,  ncol = 2, nrow = 2,
-                                                                                        common.legend=T, legend="bottom"),
-                                                     iso.pbs,  tis.pbs,ncol=4, nrow=1, labels=c("A","B","C","D")) , 
-                            ggarrange(
-                                                      tr,  q3.tr   , labels=c("E","F"), 
-                            ncol=2, nrow=1, widths=c(2,2))
-                            
-                            , ncol=1, nrow=2  )
+  ggarrange(iso.unnorm, ggarrange(p2, p1,  p4, p3,  ncol = 2, nrow = 2,
+            common.legend=T, legend="bottom"),
+            iso.pbs,  tis.pbs,ncol=4, nrow=1, labels=c("A","B","C","D")) , 
+  ggarrange(
+    tr,  q3.tr   , labels=c("E","F"), 
+     ncol=2, nrow=1, widths=c(2,2))  
+  , ncol=1, nrow=2  )
 dev.off()
       
 #tiff(file="diversity_proportionArcsin.tiff", width=900, height=900)

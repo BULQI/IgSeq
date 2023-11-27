@@ -129,4 +129,4 @@ df.mutations.test<-df.mutations[, c("ReadID", "Type", "Position")]
 save(idis.SP.IgM, idis.SP.IgG, 
   file=here(data.dir,"intraClonalDiversity_SP.RData"))
 
-cat("Done saving the output.")
+cat("Done saving the output.\n")

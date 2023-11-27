@@ -26,3 +26,5 @@ The raw IgSeq data were submitted to the NIH GEO repository. It can be found at 
 
 - The R scripts are tested and work for Figure 2 to 5.
 
+- Also added the R code to prepare the data for generating figures.
+

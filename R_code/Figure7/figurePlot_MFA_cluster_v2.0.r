@@ -185,8 +185,10 @@ k<-ggplot(data=temp)+
             #        color="black", size=8, aes(label=rownames(d.quali.lab),x=Dim.1, y=Dim.2))+
             facet_wrap(.~group, ncol=2)+
             theme_bw(base_size=13)+theme(legend.position="right") 
- tiff(file=here(output.dir,"figure6.plot.v2.0.tiff"), 
-        width=1000, height=1200)       
+ 
+pdf(file=here(output.dir,"figure6.plot.v2.0.pdf"), 
+        width=1000/72, height=1200/72
+    )       
  ggarrange(  #first level
             #drawing pc1 and 2 for doing isotye and tissue 
             ggarrange(ggarrange(ind1, ind2, ncol=1, nrow=2, labels=c("A","B")), ind3, ncol=2, nrow =1, widths=c(1.5,2)
