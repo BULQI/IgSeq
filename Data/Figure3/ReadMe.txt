@@ -8,11 +8,11 @@ To prepare the data:
     
     Download the data prepared by the author from
     
-    https://drive.google.com/file/d/1LSXHZsTFrmyRXzYXn3T2W2-Znr12ClpT/view?usp=sharing
-
+    https://drive.google.com/file/d/1hbyAXIFdGHy2DXVNE2GL3OUYWeB4HqMj/view?usp=drive_link
+    
     and 
     
-    https://drive.google.com/file/d/17BZwsdRcq4qAiz_0P0G0mPzecyekQDxj/view?usp=sharing
+    https://drive.google.com/file/d/16MHSVRpnaTm1dX40wNaxRIre51gd7Enw/view?usp=drive_link
     
     then extract them at the fold /Data. At the end, you will have two folder /Data/BM and /Data/SP, each of which
     contains individual recombination summary files by sample.
