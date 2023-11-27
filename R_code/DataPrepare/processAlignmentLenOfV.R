@@ -46,7 +46,9 @@ library(here)
 #now get all the directory names, these will be my sample names too.
 #file.names<-list.files(path=".",pattern="*.SimpleMarkedUAs.fasta",full.names=F, recursive=F);
 
-tissue<-c("MB", "SP")#tissue<-c("BM", "SP")
+
+
+tissue<-c("BM", "SP")#tissue<-c("BM", "SP")
 name_tissue<-c("MB", "SP")
 data.in.dir<-"Data"
 #BM IgG
@@ -62,7 +64,8 @@ sampleNames<-c()
 for(s in files)
 {
 	cat("reading the file:", s,"\n")
-	sname<-sub(paste0("./",tissue[n],"/"),"", s, fixed=T)
+	sname<-basename(sub(paste0("./",tissue[n],"/"),
+		"", s, fixed=T))
 	sampleName<-sub("_.*", "", sname, fixed=F)
     
 	sampleNames<-c(sampleNames, sampleName)
@@ -126,7 +129,8 @@ df.vlength.IgG<-df.vlength
 ###BM IgM
 #BM IgG
 n<-1
-files<-list.files(paste0("./",tissue[n]), pattern=paste0(name_tissue[n],"(.)+R2_IgM.SimpleMarkedUAs.fasta"),full.names=T, recursive=F);
+files<-list.files(path=here(data.in.dir,tissue[n]), 
+	pattern=paste0(name_tissue[n],"(.)+R2_IgM.SimpleMarkedUAs.fasta"),full.names=T, recursive=F);
 
 ##go into each one and run stats
 sMarked<-vector("list", length=length(files));
@@ -136,7 +140,8 @@ sampleNames<-c()
 for(s in files)
 {
 	cat("reading the file:", s,"\n")
-	sname<-sub(paste0("./",tissue[n],"/"),"", s, fixed=T)
+	sname<-basename(sub(paste0("./",tissue[n],"/"),
+		"", s, fixed=T))
 	sampleName<-sub("_.*", "", sname, fixed=F)
     
 	sampleNames<-c(sampleNames, sampleName)
@@ -200,7 +205,8 @@ BM.df.vlength<-list(IgG=df.vlength.IgG, IgM=df.vlength.IgM)
 
 ####-Spleen IgG
 n<-2
-files<-list.files(paste0("./",tissue[n]), pattern=paste0(name_tissue[n],"(.)+R2_IgG.SimpleMarkedUAs.fasta"),full.names=T, recursive=F);
+files<-list.files(here(data.in.dir,tissue[n]), 
+	pattern=paste0(name_tissue[n],"(.)+R2_IgG.SimpleMarkedUAs.fasta"),full.names=T, recursive=F);
 
 ##go into each one and run stats
 sMarked<-vector("list", length=length(files));
@@ -210,7 +216,8 @@ sampleNames<-c()
 for(s in files)
 {
 	cat("reading the file:", s,"\n")
-	sname<-sub(paste0("./",tissue[n],"/"),"", s, fixed=T)
+	sname<-basename(sub(paste0("./",tissue[n],"/"),
+		"", s, fixed=T))
 	sampleName<-sub("_.*", "", sname, fixed=F)
     
 	sampleNames<-c(sampleNames, sampleName)
@@ -272,7 +279,8 @@ df.vlength.IgG<-df.vlength
 
 ###SP IgM
 n<-2
-files<-list.files(paste0("./",tissue[n]), pattern=paste0(name_tissue[n],"(.)+R2_IgM.SimpleMarkedUAs.fasta"),full.names=T, recursive=F);
+files<-list.files(path=here(data.in.dir,tissue[n]), 
+	pattern=paste0(name_tissue[n],"(.)+R2_IgM.SimpleMarkedUAs.fasta"),full.names=T, recursive=F);
 
 ##go into each one and run stats
 sMarked<-vector("list", length=length(files));
@@ -282,7 +290,8 @@ sampleNames<-c()
 for(s in files)
 {
 	cat("reading the file:", s,"\n")
-	sname<-sub(paste0("./",tissue[n],"/"),"", s, fixed=T)
+	sname<-basename(sub(paste0("./",tissue[n],"/"),
+		"", s, fixed=T))
 	sampleName<-sub("_.*", "", sname, fixed=F)
     
 	sampleNames<-c(sampleNames, sampleName)
@@ -343,4 +352,5 @@ for(i in 1:length(sMarked))
 df.vlength.IgM<-df.vlength
 SP.df.vlength<-list(IgG=df.vlength.IgG, IgM=df.vlength.IgM)
 #save them
-save( BM.df.vlength, SP.df.vlength, file="df.vlength.RData")
+save( BM.df.vlength, SP.df.vlength, 
+	file=here(data.in.dir,"Figure6/df.vlength.RData"))
