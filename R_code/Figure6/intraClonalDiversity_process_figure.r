@@ -331,11 +331,11 @@ for (i in 1:4)
 {
     pushViewport(viewport(layout.pos.row = ((ceiling(i/2)-1)*2+1):((ceiling(i/2)-1)*2+2), layout.pos.col = c(1:3)+(1-i%%2)*3))
     if(i==1){
-            par(omi=gridOMI(), mar=c(2,2,0.4,0.1), mgp=c(1,0.2,0), tcl=-0.25, cex=1.3)
+            par(omi=gridOMI(), mar=c(2.,2.3,0.4,0.1), mgp=c(1.,0.1,0), tcl=-0.25, cex=1.25)
     }
     else
     {
-        par(omi=gridOMI(),mar=c(2,2,0.4,0.1), mgp=c(1,0.2,0), tcl=-0.25, new=TRUE, cex=1.3)
+        par(omi=gridOMI(),mar=c(2.5,2.8,0.4,0.1), mgp=c(1.5,0.22,0), tcl=-0.25, new=TRUE, cex=1.3)
     }
 
     plot(x=c(0.00, 0.034), y=c(0,0.04), type="n", xlab="Intra-Clonal Dissimilarity", 
@@ -361,12 +361,52 @@ for (i in 1:4)
     legend.label<-as.character(conditions$treatment)[order(as.integer(conditions$treatment))]
     legend(x=0.025, y=0.015, legend=unique(legend.label), col=unique(as.integer(conditions$treatment))
                     , pch=unique(as.integer(conditions$treatment)), cex=0.8)
+    
+
     par(op)
+    #text(-0.001, 0.04, "A.", cex=2)
     popViewport()
+    if(i==1)
+    {
+    text(-0.0042, 0.041, "A.", cex=2.75)
+    }
 }
      
+vp <- pushViewport(viewport(layout.pos.row =5:7, layout.pos.col =1:6))
+te<-ggplot(data=dt.mod, aes(y=ilr, x=isotype, color=treatment))+
+        #geom_point(aes(shape=treatment))+#lims(x=c(0.00, 0.034),y=c(0,0.04))+theme(legend.position = c(0.79, 0.18))+
+        geom_boxplot(aes(shape=treatment), notch=F, notchwidth=0.1)+
+        #lims(x=c(0.00, 0.034),y=c(0,0.04))+
+        guides(shape="none",color=guide_legend(title=element_blank()))+
+        labs(x=element_blank(), y="Selection (logRatio %)")+#, title=name.array[i]) +
+       facet_grid(.~tissue)+ 
+       #geom_hline(data=data.frame(yintercept=-0.02, isotype="IgG", tissue="Bone Marrow"), aes(yintercept=yintercept),
+       #                     linetype="dashed", color="red")
+        geom_segment(data=data.frame(treatment=0.0,ilr=0.01, isotype="IgG", tissue="Bone Marrow"),
+                    aes(x=1.7, xend=2.1, y=0.4, yend=0.4), colour="black",size=0.9) +#data=data.frame(yintercept=-0.02, isotype="IgG", tissue="Bone Marrow"),
+         geom_segment(data=data.frame(treatment=0.0,ilr=0.01, isotype="IgG", tissue="Bone Marrow"),
+                    aes(x=1.7, xend=2.3, y=0.6, yend=0.6),color="black", size=0.9) +   
+            geom_segment(data=data.frame(treatment=0.0,ilr=0.01, isotype="IgG", tissue="Bone Marrow"),
+                    aes(x=1.9, xend=2.1, y=0.15, yend=0.15),color="black", size=0.9) +   
+         #geom_point(data=data.frame(treatment=c(2.2, 2.3,2.5,2.6, 1.3 ),ilr=c(0.47,0.47, 0.83,0.83, 0.2), isotype="IgG", tissue="Bone Marrow"),
+         #           color="black", size=2, shape=8) + 
+         #ggtitle("B")+  
+         geom_text(data=data.frame(treatment=c(2.65,3.1,1.7),ilr=c(0.48, 0.68,0.25), isotype=c(1.9,2.0, 2), tissue="Bone Marrow"),
+                    color="black", size=4, aes(label=c("p=0.0098", "p=0.05", "p=0.05")))+
+        theme(legend.position = c(0.15, 0.88),text= element_text(size=18)
+              #plot.title = element_text(hjust = -1, vjust = -10)  
+            )
+
+####we are plot the one in above, not this current one.
+print(ggarrange(te, labels="B.  ", font.label=list(size=25)), 
+    vp=vp, newpage=FALSE) #<-plot the non-productive reads
+
+popViewport()
+dev.off()
+
 #plot first treatment effects 
-te2<-ggplot(data=dt.mod[dt.mod$isotype=="IgG"&dt.mod$tissue=="Bone Marrow",], aes(y=ilr, x=treatment, color=treatment, group=treatment))+
+te2<-ggplot(data=dt.mod[dt.mod$isotype=="IgG"&dt.mod$tissue=="Bone Marrow",], 
+    aes(y=ilr, x=treatment, color=treatment, group=treatment))+
         #geom_point(aes(shape=treatment))+#lims(x=c(0.00, 0.034),y=c(0,0.04))+theme(legend.position = c(0.79, 0.18))+
         geom_boxplot(aes(shape=treatment), notch=F, notchwidth=0.1)+
         #lims(x=c(0.00, 0.034),y=c(0,0.04))+
@@ -386,13 +426,12 @@ te2<-ggplot(data=dt.mod[dt.mod$isotype=="IgG"&dt.mod$tissue=="Bone Marrow",], ae
          geom_text(data=data.frame(treatment=c(2.65,3.1,1.7),ilr=c(0.48, 0.83,0.2), isotype="IgG", tissue="Bone Marrow"),
                     color="black", size=4, aes(label=c("p=0.011", "p=0.009", "p=0.03")))+
          annotate("text", x = 3, y = -1.5, label = "Bone Marrow IgG", size=5)+
-        theme(legend.position ="none",text= element_text(size=15),axis.text.x = element_text(angle = 30), axis.title.x = element_blank())
-vp <- pushViewport(viewport(layout.pos.row =5:7, layout.pos.col =1:6))
-
-####we are plot the one in above, not this current one.
-print(te, vp=vp, newpage=FALSE) #<-plot the non-productive reads
-popViewport()
-dev.off()
-
+         #ggtitle("B")+
+        theme(legend.position ="none",
+            text= element_text(size=15),
+            axis.text.x = element_text(angle = 30), 
+            axis.title.x = element_blank()#,
+            #plot.title = element_text(hjust = 1, vjust = -10)
+            )
 
 
