@@ -1,0 +1,34 @@
+
+services:
+  igseq_r3:
+    build: .
+    #environment:
+    #    - user= feng
+    #    - uid= 1000
+    #    - gid= 1000
+    #command: bash
+    
+    #set the new user id 1005, so that the rstudio /init script 
+    #will change everyting in the user home directory
+    #so means we need to put our project directory in the user home directory
+    #here would also set up the .env to have USER id read it
+    # USERID: ${UID}
+    #.env
+    # UID=1005 
+    #
+    environment:
+       USERID: 1000
+       PASSWORD: rstudio1
+       
+    ports:
+       - 8787:8787
+       
+    #working_dir: /main
+    volumes:
+      - vol_test3:/home/rstudio/IgSeqR3
+      #- .:/home/rstudio/IgSeqR3
+    stdin_open: true 
+    tty: true
+
+volumes:
+    vol_test3:
