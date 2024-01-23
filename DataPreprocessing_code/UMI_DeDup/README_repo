@@ -1,0 +1,19 @@
+# README about the repo
+
+- 1)
+This project also needs some dependent packages, which is not tracked by git.
+You need to download the packages and examples from 
+https://drive.google.com/file/d/1keNHry6qJHWQ0139XX9REvVuwLkLhLqM/view?usp=sharing
+
+This one is prepared on 1/22/2024.
+
+- 2)
+Also you need to create the conda env from "environment.yml",
+
+    conda create -n <name> -f environment.yml
+
+- 3)
+There is a docker image on docker hub at 
+https://hub.docker.com/repository/docker/ffeng23/umi_merge/general
+
+You can run the docker with the docker compose file in the folder, "docker-compose.yml".

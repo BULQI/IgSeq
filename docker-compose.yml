@@ -1,12 +1,9 @@
 
 services:
   igseq_r3:
-    build: .
-    #environment:
-    #    - user= feng
-    #    - uid= 1000
-    #    - gid= 1000
-    #command: bash
+    #build: .
+    
+    image: ffeng23/igseqr3
     
     #set the new user id 1005, so that the rstudio /init script 
     #will change everyting in the user home directory
