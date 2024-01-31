@@ -1,0 +1,24 @@
+# README for isotype classification c++ code
+
+This c++ programe is used to classify or annotate IG sequences for isotypes. 
+This is a part of my big c++ program, LocalAlign. It should compile successfully. 
+The code files were prepared on 1/23/2024. 
+
+## Compile
+There is a Makefile for the project. To compile, please run
+
+    make
+    
+You need g++ compilor. It has been tested with "g++ (Debian 8.3.0-6) 8.3.0" on Debian 10 Linux.
+
+
+## Run isotype classification.
+
+Run 
+    ./ngsmapping_Isotype -h
+
+for how to use the program.
+
+## docker 
+docker image for this c++ program can be accessed at https://hub.docker.com/repository/docker/ffeng23/localalign/general
+

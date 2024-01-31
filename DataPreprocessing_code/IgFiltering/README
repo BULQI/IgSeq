@@ -1,0 +1,19 @@
+# README about Ig data filtering.
+
+## Bowtie2 filtering.
+
+First step of Ig data filtering is to run bowtie2 to filter out obviously non-Ig sequences.
+This way, we significantly lower the noise in the downstream analysis. Please check the file named 
+"IgFilter_script" for detailed information on the calling of bowtie2.
+
+## Fastq data generation.
+
+In this step, we run an R script to go through bam files generated in the previous step and 
+rewrite the data into the fastq format again and make them available for the next processing pipeline.
+
+The calling of the run is as follows,
+
+    R CMD BATCH --no-save --no-restore    '--args bamfiles=<name of bam file>'   mapSam_script.R  <running log file name>
+
+.
+

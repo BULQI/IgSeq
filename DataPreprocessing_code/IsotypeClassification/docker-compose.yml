@@ -1,0 +1,67 @@
+
+services:
+  localalign:
+    build: 
+        context: .
+        dockerfile: Dockerfile
+    image: ffeng23/localalign
+    #environment:
+    #    USER_d: user1
+    #    uid1: 1000
+    #    gid1: 1000
+    #    DIR_TO_CHANGE: /home/user1
+    #command: bash
+    
+    #set the new user id 1005, so that the rstudio /init script 
+    #will change everyting in the user home directory
+    #so means we need to put our project directory in the user home directory
+    #here would also set up the .env to have USER id read it
+    # USERID: ${UID}
+    #.env
+    # UID=1005 
+    #
+    #environment:
+    #   USERID: 1000
+    #   PASSWORD: rstudio1
+    entrypoint:
+        - /bin/bash 
+        - -c 
+        - |
+          echo 'modifying user id numberkkkkk.....'
+          echo '${USER_dock}.........'
+          echo '${DIR_TO_CHANGE}..........'
+          id
+          if [ ! $(getent group ${GID1}) ]; then
+             addgroup --gid ${GID1} ${USER_dock}_1
+          fi
+          
+          if [ ! $(getent passwd $USER_dock) ]; then
+             adduser --uid ${UID1} --gid ${GID1} --gecos '' --disabled-password ruser
+          else
+             echo "modifying user id......."
+             usermod -u ${UID1} -g ${GID1} $USER_dock
+          fi
+          echo 'change the owner ship of necessary files'
+          #please create project under the ruser home directory
+          #otherwise we need to change ownership of that directory too
+          chown -R ${UID1}:${GID1} /home/${USER_dock}
+          echo 'Calling the services..........'
+          bash
+             
+    #working_dir: /main
+    volumes:
+      - vol_test3:/home/${USER_dock}/scomatic
+    stdin_open: true 
+    tty: true
+
+volumes:
+    vol_test3:
+    
+## to run the build using
+#  dockcompose compose build
+
+#  to run it
+#  1) modify the .env file if necessary
+#  2) docker compose up -d
+#  3) docker compose exec localalign bash # run bash as root
+#  4) docker compose exec localalign su - user1 #run as user1
