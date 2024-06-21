@@ -56,7 +56,11 @@ determineClones<-function(clones, num.samples)
     return (f_abundence$counts)
 }
 
-#'@description we are doing subsampling of sequences (no colons) to estimate the diversity with repeats
+#'@description we are doing subsampling of sequences (no colons) to 
+#' estimate the diversity with repeats. Also in this current version, we
+#' still run subsampling even if the number of sequences is the sample
+#' as the requested subsampling run number. We might want to modify
+#' this behavior. (To-do).
 #'@param abundance the abundance vector each item is for one clone and number is the abundance
 #'@param sub.sample.num number of sequences to do subsampling.
 #'@param num.rep number of repeats to do subsampling.
