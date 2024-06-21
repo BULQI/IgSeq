@@ -71,6 +71,7 @@ diversity_subSample<-function(abundance, sub.sample.num, num.rep, q=seq(0,4,0.25
     while(i <=num.rep)
     {
         cat("doing round i:", i, "........\n")
+        #It is inside determineClones to run sub-sampling!!!
         x<-determineClones(abundance, sub.sample.num)
         sub.abundance.matrix[,i]<-x
         #do diversity
